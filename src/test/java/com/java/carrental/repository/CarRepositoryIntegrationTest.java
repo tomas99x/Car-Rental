@@ -9,6 +9,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.time.LocalDate;
@@ -21,6 +22,9 @@ import static org.junit.Assert.*;
 
 @RunWith(SpringRunner.class)
 @DataJpaTest
+@TestPropertySource(properties = {
+        "spring.datasource.initialization-mode=never"
+})
 public class CarRepositoryIntegrationTest {
     @Autowired
     CarRepository carRepository;
@@ -112,12 +116,12 @@ public class CarRepositoryIntegrationTest {
 
         //given
         carRepository.save(new CarEntity(
-                "BMW 320",
-                CarType.COUPE,
+                "BMW 530",
+                CarType.COMBI,
                 LocalDate.of(2018, 10, 10),
                 CarColor.BLACK,
                 200L,
-                177L,
+                217L,
                 15600L)
         );
 
@@ -142,12 +146,12 @@ public class CarRepositoryIntegrationTest {
         );
 
         //when
-        List<CarEntity> carList = carRepository.findByTypeBrand("COUPE", "BMW 320");
+        List<CarEntity> carList = carRepository.findByTypeBrand("COMBI", "BMW 530");
 
         //then
         assertEquals(1, carList.size());
-        assertEquals("BMW 320", carList.get(0).getCarBrandModel());
-        assertEquals(CarType.COUPE, carList.get(0).getCarType());
+        assertEquals("BMW 530", carList.get(0).getCarBrandModel());
+        assertEquals(CarType.COMBI, carList.get(0).getCarType());
 
     }
 
@@ -155,7 +159,7 @@ public class CarRepositoryIntegrationTest {
     public void shouldFindCarWithEmployeeAfterSaveIt() {
 
         //given
-        Set<EmployeeEntity> employeeEntity = new HashSet<>();
+        List<EmployeeEntity> employeeEntity = new ArrayList<>();
 
         employeeEntity.add(new EmployeeEntity(
                 "Andrzej",
@@ -164,8 +168,8 @@ public class CarRepositoryIntegrationTest {
         );
 
         CarEntity carEntity = new CarEntity(
-                "BMW 320",
-                CarType.COUPE,
+                "Audi A6",
+                CarType.COMBI,
                 LocalDate.of(2018, 10, 10),
                 CarColor.BLACK,
                 200L,
@@ -187,7 +191,7 @@ public class CarRepositoryIntegrationTest {
         assertEquals(carEntity.getEngineCapacity(), carList.get(0).getEngineCapacity());
         assertEquals(carEntity.getMileage(), carList.get(0).getMileage());
 
-        assertEquals(employeeEntity.iterator().next().getFirstName(), carList.get(0).getCarKeepers().iterator().next().getFirstName());
-        assertEquals("Nowak", carList.get(0).getCarKeepers().iterator().next().getLastName());
+        assertEquals(employeeEntity.iterator().next().getFirstName(), carList.get(0).getCarKeepers().get(0).getFirstName());
+        assertEquals("Nowak", carList.get(0).getCarKeepers().get(0).getLastName());
     }
 }

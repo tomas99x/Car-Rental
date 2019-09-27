@@ -8,8 +8,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.List;
 
 @Getter
 @Setter
@@ -51,11 +50,11 @@ public class CarEntity {
     @JoinTable(name = "CAR_TO_EMPLOYEE",
             joinColumns = @JoinColumn(name = "CAR_ID"),
             inverseJoinColumns = @JoinColumn(name = "EMPLOYEE_ID"))
-    private Set<EmployeeEntity> carKeepers ;
+    private List<EmployeeEntity> carKeepers;
 
     @OneToMany(cascade = {CascadeType.REMOVE},
             mappedBy = "car")
-    private Set<RentalEntity> rentals = new HashSet<>();
+    private List<RentalEntity> rentals;
 
     public CarEntity(String carBrandModel, CarType carType, LocalDate productionYear, CarColor carColor, Long engineCapacity, Long horsePower, Long mileage) {
         this.carType = carType;
