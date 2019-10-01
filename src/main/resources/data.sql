@@ -1,7 +1,7 @@
 INSERT INTO BRANCH (ID, CITY, HOUSE_NO, POSTAL_CODE, STREET)
 VALUES (1,'Wroclaw','11','55-454','legnicka');
 INSERT INTO BRANCH (ID, CITY, HOUSE_NO, POSTAL_CODE, STREET)
-VALUES (2,'Pozanń','44','60-454','zachodnia');
+VALUES (2,'Poznań','44','60-454','zachodnia');
 
 INSERT INTO EMPLOYEE(ID, first_Name, LAST_NAME, POSITION, BRANCH_ID)
 VALUES (1, 'Janusz', 'Kowalski', 'MANAGER', 1);
@@ -10,7 +10,7 @@ VALUES (2, 'Andrzej', 'Kowal', 'MANAGER', 2);
 INSERT INTO EMPLOYEE(ID, first_Name, LAST_NAME, POSITION, BRANCH_ID)
 VALUES (3, 'Marek', 'Pas', 'SELLER', 1);
 INSERT INTO EMPLOYEE(ID, first_Name, LAST_NAME, POSITION, BRANCH_ID)
-VALUES (4, 'Zenek', 'Nie', 'SELLER', 2);
+VALUES (4, 'Zenek', 'Niema', 'SELLER', 2);
 INSERT INTO EMPLOYEE(ID, first_Name, LAST_NAME, POSITION, BRANCH_ID)
 VALUES (5, 'Marta', 'Piesza', 'ACCOUNTANT', 1);
 

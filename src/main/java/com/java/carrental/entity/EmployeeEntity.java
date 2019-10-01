@@ -28,6 +28,9 @@ public class EmployeeEntity {
     @Enumerated(EnumType.STRING)
     private EmployeePosition position;
 
+    @ManyToOne
+    private BranchEntity branch;
+
     @ManyToMany(mappedBy = "carKeepers")
     private List<CarEntity> cars;
 

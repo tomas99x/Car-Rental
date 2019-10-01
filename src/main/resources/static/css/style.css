@@ -1,0 +1,15 @@
+.table-clear,
+.table-clear th,
+.table-clear td {
+    padding: 0.5rem;
+
+}
+
+.list-inline{
+    display:block;
+    margin-top: 6rem;
+}
+.list-inline li{
+    display:inline-block;
+    margin-right: 20px;
+}

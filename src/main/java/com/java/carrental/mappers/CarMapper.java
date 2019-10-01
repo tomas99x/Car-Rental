@@ -13,6 +13,7 @@ public interface CarMapper {
     @Mapping(ignore = true, target = "carKeepers")
     CarDTO carToCarDTO(CarEntity carEntity);
 
+    @Mapping(ignore = true, target = "carKeepers")
     CarEntity carDtoToCar(CarDTO carDTO);
 
     List<CarDTO> listCarToCarDTOs(List<CarEntity> carEntityList);

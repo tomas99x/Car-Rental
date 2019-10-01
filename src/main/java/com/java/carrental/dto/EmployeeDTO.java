@@ -20,5 +20,7 @@ public class EmployeeDTO {
 
     private EmployeePosition position;
 
+    private String branch;
+
     private List<CarDTO> cars;
 }

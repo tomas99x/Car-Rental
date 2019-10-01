@@ -24,6 +24,10 @@ public class CarDTO {
 
     private CarColor carColor;
 
+    private Long engineCapacity;
+
+    private Long horsePower;
+
     private Long mileage;
 
     private List<EmployeeDTO> carKeepers;

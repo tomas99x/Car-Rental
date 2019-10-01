@@ -6,7 +6,6 @@ import com.java.carrental.entity.CarEntity;
 import com.java.carrental.mappers.CarMapper;
 import com.java.carrental.mappers.EmployeeMapper;
 import com.java.carrental.repository.CarRepository;
-import com.java.carrental.repository.EmployeeRepository;
 import com.java.carrental.service.CarService;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,12 +21,15 @@ public class CarServiceImpl implements CarService {
     private CarMapper carMapper;
     private EmployeeMapper employeeMapper;
     private CarRepository carRepository;
-    private EmployeeRepository employeeRepository;
 
     @Override
     public List<CarDTO> findAllCars() {
         List<CarEntity> setCars = carRepository.findAll();
-        return carMapper.listCarToCarDTOs(setCars);
+        List<CarDTO> listCarDTO = carMapper.listCarToCarDTOs(setCars);
+        for (int i = 0; i < listCarDTO.size(); i++ ) {
+            listCarDTO.get(i).setCarKeepers(employeeMapper.listEmployeesToEmployeeDTOs(setCars.get(i).getCarKeepers()));
+        }
+        return listCarDTO;
     }
 
     @Override

@@ -14,11 +14,11 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
+import java.util.Optional;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 
 @RunWith(SpringRunner.class)
 @DataJpaTest
@@ -193,5 +193,15 @@ public class CarRepositoryIntegrationTest {
 
         assertEquals(employeeEntity.iterator().next().getFirstName(), carList.get(0).getCarKeepers().get(0).getFirstName());
         assertEquals("Nowak", carList.get(0).getCarKeepers().get(0).getLastName());
+    }
+
+    @Test
+    public void shouldReturnFalseWhenNotFound(){
+
+        //when
+        Optional<CarEntity> found = carRepository.findById(2L);
+
+        //then
+        assertFalse(found.isPresent());
     }
 }

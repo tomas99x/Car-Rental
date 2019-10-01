@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://thymeleaf.org"
+      xmlns:layout="http//www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragments/main_layout}" >
+<head>
+    <meta charset="UTF-8">
+    <title>Cars</title>
+</head>
+<body>
+    <div layout:fragment="content" class="container">
+        <h1 class="pt-4 pb-4" th:text="#{car.cars}"></h1>
+            <table class="table table-hover table-clear" >
+                <thead>
+                    <tr>
+                        <th scope="col" th:text="#{car.carBrandModel}"/></th>
+                        <th scope="col" th:text="#{car.carType}"/></th>
+                        <th scope="col" th:text="#{car.productionYear}"/></th>
+                        <th scope="col" th:text="#{car.carColor}"/></th>
+                        <th scope="col" th:text="#{car.engineCapacity}"/></th>
+                        <th scope="col" th:text="#{car.horsePower}"/> </th>
+                        <th scope="col" th:text="#{car.mileage}"/></th>
+                        <th scope="col" th:text="#{car.carKeepers}"/></th>
+                    </tr>
+                </thead>
+                <tbody>
+                        <tr th:each="tempCar : ${cars}">
+                            <td th:text="${tempCar.carBrandModel}"/>
+                            <td th:text="${tempCar.carType}"/>
+                            <td th:text="${tempCar.productionYear}"/>
+                            <td th:text="${tempCar.carColor}"/>
+                            <td th:text="${tempCar.engineCapacity}"/>
+                            <td th:text="${tempCar.horsePower}"/>
+                            <td th:text="${tempCar.mileage}"/>
+                            <td >
+                                <table class="table-info">
+                                    <tr th:each="tempKeeper : ${tempCar.carKeepers}">
+                                        <td style="border-top:0px; padding:0.3rem;" th:text="${tempKeeper.firstName}" />
+                                        <td style="border-top:0px; padding:0.3rem;" th:text="${tempKeeper.lastName}" />
+                                    </tr>
+                                </table>
+                            </td>
+                    </tr>
+                </tbody>
+            </table>
+    </div>
+</body>
+</html>
