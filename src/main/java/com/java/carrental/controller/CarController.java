@@ -52,9 +52,9 @@ public class CarController {
     }
 
     @GetMapping("/editCar")
-    public String editCarForm(Model model){
+    public String editCarForm(Model model,  @RequestParam(name = "carId") Long carId){
 
-        CarDTO carDTO = carService.findCarById(1L);
+        CarDTO carDTO = carService.findCarById(carId);
 
         List<EmployeeDTO> employeeDTOS =  employeeService.findAllEmployeesWithCar();
 
@@ -67,12 +67,10 @@ public class CarController {
             }
         }
 
-
-
         model.addAttribute("car", carDTO);
         model.addAttribute("employees", employeeDTOS);
         model.addAttribute("branches", branchService.findAllBranches());
-        return "car-form";
+        return "car-update-form";
     }
 
 }

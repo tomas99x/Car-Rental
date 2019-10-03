@@ -46,7 +46,8 @@ public class CarEntity {
     @Column(nullable = false)
     private Long mileage;
 
-    @ManyToMany(cascade = {
+    @ManyToMany(fetch = FetchType.LAZY,
+            cascade = {
             CascadeType.PERSIST,
             CascadeType.MERGE
     })

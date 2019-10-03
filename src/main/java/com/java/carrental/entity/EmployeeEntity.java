@@ -34,7 +34,7 @@ public class EmployeeEntity {
     @JoinColumn(name = "BRANCH_ID")
     private BranchEntity branch;
 
-    @ManyToMany(mappedBy = "carKeepers")
+    @ManyToMany(mappedBy = "carKeepers", fetch = FetchType.LAZY)
     private List<CarEntity> cars = new ArrayList<>();
 
     public EmployeeEntity(String firstName, String lastName, EmployeePosition position) {

@@ -39,10 +39,7 @@ public class CarServiceImpl implements CarService {
     @Override
     public CarDTO findCarById(Long id) {
         CarEntity carEntity = carRepository.findById(id).get();
-
-        CarDTO carDTO = carToCarDTO(carEntity);
-
-        return carDTO;
+        return carToCarDTO(carEntity);
     }
 
 
