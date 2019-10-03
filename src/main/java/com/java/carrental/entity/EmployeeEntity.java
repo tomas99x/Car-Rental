@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Getter
@@ -15,8 +16,9 @@ import java.util.List;
 @Table(name = "EMPLOYEE")
 public class EmployeeEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    protected Long id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", updatable = false, nullable = false)
+    private Long id;
 
     @Column(nullable = false)
     private String firstName;
@@ -28,11 +30,12 @@ public class EmployeeEntity {
     @Enumerated(EnumType.STRING)
     private EmployeePosition position;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "BRANCH_ID")
     private BranchEntity branch;
 
     @ManyToMany(mappedBy = "carKeepers")
-    private List<CarEntity> cars;
+    private List<CarEntity> cars = new ArrayList<>();
 
     public EmployeeEntity(String firstName, String lastName, EmployeePosition position) {
         this.firstName = firstName;

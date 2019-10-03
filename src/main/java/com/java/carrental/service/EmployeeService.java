@@ -10,5 +10,9 @@ public interface EmployeeService {
 
     EmployeeDTO findEmployeeById(Long id);
 
+    List<EmployeeDTO> findEmployeeByIdS(List<Long> ids);
+
     EmployeeDTO findEmployeeByIdWithCar(Long id);
+
+    List<EmployeeDTO> findAllEmployeesWithCar();
 }

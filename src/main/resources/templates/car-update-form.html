@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://thymeleaf.org"
+      xmlns:layout="http//www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragments/main_layout}" >
+<head>
+    <meta charset="UTF-8">
+    <title th:text="#{car.add.title}"></title>
+</head>
+<body>
+    <div layout:fragment="content" class="container">
+        <h1 class="pt-4 pb-4" th:text="#{car.add.title}"></h1>
+
+        <form th:action="@{/addCar}" th:object="${car}" method="post">
+            <div class="form-group row">
+                <div class="col-sm-6">
+                    <label th:text="#{car.carBrandModel}"/>
+                    <input class="form-control" type="text" th:field="*{carBrandModel}"/>
+                </div>
+
+                <div class="col-sm-6">
+                    <label th:text="#{car.carType}"/>
+                    <input class="form-control" type="text" th:field="*{carType}"/>
+                </div>
+
+                <div class="col-sm-6">
+                    <label th:text="#{car.productionYear}"/>
+                    <input class="form-control" type="date" th:field="*{productionYear}"/>
+                </div>
+
+                <div class="col-sm-6">
+                    <label th:text="#{car.carColor}"/>
+                    <input class="form-control" type="text" th:field="*{carColor}"/>
+                </div>
+
+                <div class="col-sm-6">
+                    <label th:text="#{car.engineCapacity}"/>
+                    <input class="form-control" type="text" th:field="*{engineCapacity}"/>
+                </div>
+
+                <div class="col-sm-6">
+                    <label th:text="#{car.horsePower}"/>
+                    <input class="form-control" type="text" th:field="*{horsePower}"/>
+                </div>
+
+                <div class="col-sm-6">
+                    <label th:text="#{car.mileage}"/>
+                    <input class="form-control" type="text" th:field="*{mileage}"/>
+                </div>
+
+
+            </div>
+
+            <div class="col-sm-6" >
+                <fieldset class="form-group">
+                    <label th:text="#{car.add.branches}" />
+                    <div class="form-check">
+
+                        <ul>
+                            <li th:each="branch : ${branches}" >
+                                <input class="form-check-input" type="radio" th:name="branchId" th:value="${branch.id}"
+                                       th:checked="${branch.id == car.branch.id}"/>
+                                <label class="form-check-label m-1" th:text="${branch.address.city}" ></label>
+                            </li>
+                        </ul>
+                    </div>
+                </fieldset>
+            </div>
+
+            <div class="col-sm-6" >
+                <fieldset class="form-group">
+                    <label th:text="#{car.add.keepers}" />
+                    <div class="form-check">
+
+                    <ul>
+                        <li th:each="employee : ${employees}">
+                            <input class="form-check-input" type="checkbox" th:name="employeeIds" th:value="${employee.id}"
+                                   th:checked="${employee.cars != null}"/>
+                            <label class="form-check-label m-1" th:text="${employee.firstName}" ></label>
+                            <label class="form-check-label" th:text="${employee.lastName}" ></label>
+                            <label class="form-check-label" th:text="${employee.position}" ></label>
+                            <label th:if="${employee.branch == null}" class="form-check-label" th:text="${employee.branch}"/>
+                            <label th:unless="${employee.branch == null}"
+                                class="form-check-label" th:text="${employee.branch.address.city}"/>
+                        </li>
+                    </ul>
+                    </div>
+                </fieldset>
+            </div>
+
+            <button type="submit" class="btn btn-dark" th:text="#{add.button}" />
+
+        </form>
+
+    </div>
+</body>
+</html>

@@ -34,10 +34,27 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
+    public List<EmployeeDTO> findEmployeeByIdS(List<Long> ids) {
+        return employeeMapper.listEmployeesToEmployeeDTOs(employeeRepository.findAllById(ids));
+    }
+
+    @Override
     public EmployeeDTO findEmployeeByIdWithCar(Long id) {
         EmployeeEntity employeeEntity = employeeRepository.findById(id).get();
         EmployeeDTO employeeDTO = employeeMapper.employeeToEmployeeDTO(employeeEntity);
         employeeDTO.setCars(carMapper.listCarToCarDTOs(employeeEntity.getCars()));
+        return employeeDTO;
+    }
+
+    @Override
+    public List<EmployeeDTO> findAllEmployeesWithCar() {
+        List<EmployeeEntity> employeeEntities = employeeRepository.findAll();
+        List<EmployeeDTO> employeeDTO = employeeMapper.listEmployeesToEmployeeDTOs(employeeEntities);
+        for (int i = 0; i < employeeDTO.size(); i++ ) {
+            if (employeeEntities.get(i).getCars().size() > 0) {
+                employeeDTO.get(i).setCars(carMapper.listCarToCarDTOs(employeeEntities.get(i).getCars()));
+            }
+        }
         return employeeDTO;
     }
 }

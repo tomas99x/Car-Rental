@@ -1,9 +1,16 @@
 package com.java.carrental.entity;
 
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
+@Getter
+@Setter
+@NoArgsConstructor
 @Entity
 @Table(name = "RENTAL")
 public class RentalEntity {

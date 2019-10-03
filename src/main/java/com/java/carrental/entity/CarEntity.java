@@ -8,6 +8,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @Getter
@@ -16,8 +17,10 @@ import java.util.List;
 @Entity
 @Table(name = "CAR")
 public class CarEntity {
+
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", updatable = false, nullable = false)
     private Long id;
 
     @Column(nullable = false, length = 40)
@@ -50,10 +53,15 @@ public class CarEntity {
     @JoinTable(name = "CAR_TO_EMPLOYEE",
             joinColumns = @JoinColumn(name = "CAR_ID"),
             inverseJoinColumns = @JoinColumn(name = "EMPLOYEE_ID"))
-    private List<EmployeeEntity> carKeepers;
+    private List<EmployeeEntity> carKeepers = new ArrayList<>();
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "BRANCH_ID")
+    private BranchEntity branch;
 
     @OneToMany(cascade = {CascadeType.REMOVE},
-            mappedBy = "car")
+            mappedBy = "car",
+            fetch = FetchType.LAZY)
     private List<RentalEntity> rentals;
 
     public CarEntity(String carBrandModel, CarType carType, LocalDate productionYear, CarColor carColor, Long engineCapacity, Long horsePower, Long mileage) {

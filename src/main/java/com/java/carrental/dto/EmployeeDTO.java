@@ -2,12 +2,14 @@ package com.java.carrental.dto;
 
 import com.java.carrental.entity.enums.EmployeePosition;
 import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.util.List;
 
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 public class EmployeeDTO {
@@ -20,7 +22,7 @@ public class EmployeeDTO {
 
     private EmployeePosition position;
 
-    private String branch;
+    private BranchDTO branch;
 
     private List<CarDTO> cars;
 }

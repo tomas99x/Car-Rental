@@ -3,13 +3,16 @@ package com.java.carrental.dto;
 import com.java.carrental.entity.enums.CarColor;
 import com.java.carrental.entity.enums.CarType;
 import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
 import java.util.List;
 
-@Data
+@Setter
+@Getter
 @NoArgsConstructor
 @AllArgsConstructor
 public class CarDTO {
@@ -20,6 +23,7 @@ public class CarDTO {
 
     private CarType carType;
 
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate productionYear;
 
     private CarColor carColor;
@@ -32,6 +36,8 @@ public class CarDTO {
 
     private List<EmployeeDTO> carKeepers;
 
-    //private List<RentalDTO> rentals;
+    private BranchDTO branch;
+
+    private List<RentalDTO> rentals;
 
 }

@@ -51,6 +51,8 @@ public class CarServiceTest {
                 2000L,
                 177L,
                 15600L,
+                null,
+                null,
                 null);
 
         //when

@@ -196,6 +196,47 @@ public class CarRepositoryIntegrationTest {
     }
 
     @Test
+    public void shouldFindCarWithEmployeeWhenEmployeWasSavedEarlier() {
+
+        //given
+        EmployeeEntity employeeEntity = new EmployeeEntity(
+                "Andrzej",
+                "Nowak",
+                EmployeePosition.SELLER
+        );
+
+        CarEntity carEntity = new CarEntity(
+                "Audi A6",
+                CarType.COMBI,
+                LocalDate.of(2018, 10, 10),
+                CarColor.BLACK,
+                200L,
+                177L,
+                15600L
+        );
+
+        employeeRepository.save(employeeEntity);
+        List<EmployeeEntity> employeeEntities = employeeRepository.findAll();
+
+        carEntity.setCarKeepers(employeeEntities);
+
+        //when
+        carRepository.save(carEntity);
+        List<CarEntity> carList = carRepository.findAll();
+
+        //then
+        assertEquals(1, carList.size());
+        assertEquals(carEntity.getCarBrandModel(), carList.get(0).getCarBrandModel());
+        assertEquals(carEntity.getCarType(), carList.get(0).getCarType());
+        assertEquals(carEntity.getCarColor(), carList.get(0).getCarColor());
+        assertEquals(carEntity.getEngineCapacity(), carList.get(0).getEngineCapacity());
+        assertEquals(carEntity.getMileage(), carList.get(0).getMileage());
+
+        assertEquals(employeeEntity.getFirstName(), carList.get(0).getCarKeepers().get(0).getFirstName());
+        assertEquals("Nowak", carList.get(0).getCarKeepers().get(0).getLastName());
+    }
+
+    @Test
     public void shouldReturnFalseWhenNotFound(){
 
         //when
