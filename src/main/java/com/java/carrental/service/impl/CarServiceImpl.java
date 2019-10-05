@@ -1,11 +1,13 @@
 package com.java.carrental.service.impl;
 
 import com.java.carrental.dto.CarDTO;
+import com.java.carrental.dto.CarWithStrKeepersDTO;
 import com.java.carrental.dto.EmployeeDTO;
 import com.java.carrental.entity.BranchEntity;
 import com.java.carrental.entity.CarEntity;
 import com.java.carrental.entity.EmployeeEntity;
 import com.java.carrental.mappers.CarMapper;
+import com.java.carrental.mappers.CarWithRentalsMapper;
 import com.java.carrental.mappers.EmployeeMapper;
 import com.java.carrental.repository.BranchRepository;
 import com.java.carrental.repository.CarRepository;
@@ -23,6 +25,7 @@ import java.util.List;
 public class CarServiceImpl implements CarService {
 
     private CarMapper carMapper;
+    private CarWithRentalsMapper carWithRentalsMapper;
     private EmployeeMapper employeeMapper;
     private CarRepository carRepository;
     private EmployeeRepository employeeRepository;
@@ -31,9 +34,7 @@ public class CarServiceImpl implements CarService {
     @Override
     public List<CarDTO> findAllCars() {
         List<CarEntity> carEntities = carRepository.findAll();
-        List<CarDTO> carDTOs = listCarToCarDTOs(carEntities);
-
-        return carDTOs;
+        return listCarToCarDTOs(carEntities);
     }
 
     @Override
@@ -64,7 +65,6 @@ public class CarServiceImpl implements CarService {
     }
 
 
-
     @Override
     public CarDTO saveCar(CarDTO carDTO) {
         CarEntity carEntity = carRepository.save(carMapper.carDtoToCar(carDTO));
@@ -72,25 +72,27 @@ public class CarServiceImpl implements CarService {
     }
 
     @Override
-    public CarDTO saveCarWithCarKeepersAndBranch(CarDTO carDTO, List<Long> employeeIds, Long branchId) {
+    public CarDTO saveCarWithCarKeepersAndBranch(CarWithStrKeepersDTO carDTO) {
 
-        CarEntity carEntity = carMapper.carDtoToCar(carDTO);
+        CarEntity carEntity = carWithRentalsMapper.carDtoToCar(carDTO);
 
-        List<EmployeeEntity> employeeEntities = null;
-        if (employeeIds != null) {
-            employeeEntities = employeeRepository.findAllById(employeeIds);
+        List<EmployeeEntity> employeeEntities = new ArrayList<>();
+        if (carDTO.getCarKeepers() != null) {
+            for (Long keeper : carDTO.getCarKeepers()) {
+                employeeEntities.add(employeeRepository.findById(keeper).get());
+            }
         }
 
         BranchEntity branchEntity = null;
-        if (branchId != null) {
-            branchEntity = branchRepository.findById(branchId).get();
+        if (carDTO.getBranch() != null) {
+
+            branchEntity = branchRepository.findById(carDTO.getBranch()).get();
         }
 
         carEntity.setBranch(branchEntity);
         carEntity.setCarKeepers(employeeEntities);
         carEntity = carRepository.save(carEntity);
-        carDTO = carMapper.carToCarDTO(carEntity);
 
-        return carDTO;
+        return carMapper.carToCarDTO(carEntity);
     }
 }

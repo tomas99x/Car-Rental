@@ -1,6 +1,7 @@
 package com.java.carrental.service;
 
 import com.java.carrental.dto.CarDTO;
+import com.java.carrental.dto.CarWithStrKeepersDTO;
 
 import java.util.List;
 
@@ -12,5 +13,5 @@ public interface CarService {
 
     CarDTO saveCar(CarDTO carDTO);
 
-    CarDTO saveCarWithCarKeepersAndBranch(CarDTO carDTO, List<Long> employeeIds, Long branchId);
+    CarDTO saveCarWithCarKeepersAndBranch(CarWithStrKeepersDTO carDTO);
 }

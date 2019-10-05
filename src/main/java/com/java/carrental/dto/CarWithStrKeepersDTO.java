@@ -7,7 +7,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.format.annotation.DateTimeFormat;
-import javax.validation.constraints.NotBlank;
+
+import javax.validation.constraints.*;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -15,30 +16,35 @@ import java.util.List;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class CarDTO {
+public class CarWithStrKeepersDTO {
 
     private Long id;
 
     @NotBlank
     private String carBrandModel;
 
+    @NotNull
     private CarType carType;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate productionYear;
 
+    @NotNull
     private CarColor carColor;
 
+    @NotNull
     private Long engineCapacity;
 
+    @NotNull
     private Long horsePower;
 
+    @NotNull
     private Long mileage;
 
-    private List<EmployeeDTO> carKeepers;
+    private List<Long> carKeepers;
 
-    private BranchDTO branch;
+    private Long branch;
 
-    private List<RentalDTO> rentals;
+
 
 }

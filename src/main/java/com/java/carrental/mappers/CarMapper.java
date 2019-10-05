@@ -2,7 +2,6 @@ package com.java.carrental.mappers;
 
 import com.java.carrental.dto.CarDTO;
 import com.java.carrental.entity.CarEntity;
-import org.mapstruct.InheritConfiguration;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 

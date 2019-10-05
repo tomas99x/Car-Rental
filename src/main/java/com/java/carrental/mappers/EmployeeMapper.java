@@ -11,11 +11,9 @@ import java.util.List;
 public interface EmployeeMapper {
 
     @Mapping(ignore = true, target = "cars")
-  //  @Mapping(source = "branch.address.city", target = "branch")
     EmployeeDTO employeeToEmployeeDTO(EmployeeEntity employeeEntity);
 
     @Mapping(ignore = true, target = "cars")
-  //  @Mapping(source = "branch", target = "branch.address.city")
     EmployeeEntity employeeDtoToEmployee(EmployeeDTO employeeDTO);
 
     List<EmployeeDTO> listEmployeesToEmployeeDTOs(List<EmployeeEntity> employeeEntityList);
