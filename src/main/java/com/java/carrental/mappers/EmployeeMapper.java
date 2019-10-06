@@ -2,12 +2,15 @@ package com.java.carrental.mappers;
 
 import com.java.carrental.dto.EmployeeDTO;
 import com.java.carrental.entity.EmployeeEntity;
+import org.mapstruct.DecoratedWith;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+import org.mapstruct.Qualifier;
 
 import java.util.List;
 
 @Mapper(componentModel = "spring")
+@DecoratedWith(EmployeeMapperDecorator.class)
 public interface EmployeeMapper {
 
     @Mapping(ignore = true, target = "cars")

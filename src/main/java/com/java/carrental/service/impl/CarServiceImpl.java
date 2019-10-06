@@ -6,6 +6,7 @@ import com.java.carrental.dto.EmployeeDTO;
 import com.java.carrental.entity.BranchEntity;
 import com.java.carrental.entity.CarEntity;
 import com.java.carrental.entity.EmployeeEntity;
+import com.java.carrental.entity.enums.CarType;
 import com.java.carrental.mappers.CarMapper;
 import com.java.carrental.mappers.CarWithRentalsMapper;
 import com.java.carrental.mappers.EmployeeMapper;
@@ -15,6 +16,7 @@ import com.java.carrental.repository.EmployeeRepository;
 import com.java.carrental.service.CarService;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -30,6 +32,10 @@ public class CarServiceImpl implements CarService {
     private CarRepository carRepository;
     private EmployeeRepository employeeRepository;
     private BranchRepository branchRepository;
+
+    @Autowired
+    @Qualifier("delegate")
+    private EmployeeMapper employeeMapper2;
 
     @Override
     public List<CarDTO> findAllCars() {
@@ -49,12 +55,12 @@ public class CarServiceImpl implements CarService {
             return null;
         }
 
-        List<CarDTO> list = new ArrayList<>(carEntityList.size());
+        List<CarDTO> carDTOs = new ArrayList<>(carEntityList.size());
         for (CarEntity carEntity : carEntityList) {
-            list.add(carToCarDTO(carEntity));
+            carDTOs.add(carToCarDTO(carEntity));
         }
 
-        return list;
+        return carDTOs;
     }
 
     private CarDTO carToCarDTO(CarEntity carEntity) {
@@ -92,7 +98,26 @@ public class CarServiceImpl implements CarService {
         carEntity.setBranch(branchEntity);
         carEntity.setCarKeepers(employeeEntities);
         carEntity = carRepository.save(carEntity);
-
         return carMapper.carToCarDTO(carEntity);
     }
+
+    @Override
+    public List<CarDTO> findCarByModelTypeBranch(String brandModel,  String type, String branchId) {
+
+        Enum<CarType> carTypeEnum = null;
+        if (!"none".equals(type)){
+            carTypeEnum = CarType.valueOf(type);
+        }
+
+        Long id;
+        BranchEntity branchEntity = null;
+        if (!"none".equals(branchId)) {
+            id = Long.parseLong(branchId);
+            branchEntity = branchRepository.findById(id).get();
+        }
+
+        List<CarEntity> carEntity = carRepository.findCarByModelTypeBranch(brandModel, carTypeEnum, branchEntity);
+        return listCarToCarDTOs(carEntity);
+    }
+
 }
