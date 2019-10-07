@@ -17,8 +17,8 @@ public interface CarMapper {
     @Mapping(ignore = true, target = "rentals")
     CarEntity carDtoToCar(CarDTO carDTO);
 
-    List<CarDTO> listCarToCarDTOs(List<CarEntity> carEntityList);
+    List<CarDTO> listCarToCarDTOs(List<CarEntity> carEntities);
 
-    List<CarEntity> listCarDtoToCars(List<CarDTO> carDTOSet);
+    List<CarEntity> listCarDtoToCars(List<CarDTO> carDTOS);
 
 }

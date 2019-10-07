@@ -1,4 +1,4 @@
-package com.java.carrental.controller;
+package com.java.carrental.controller.api;
 
 
 import com.java.carrental.dto.CarDTO;

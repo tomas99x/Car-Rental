@@ -35,7 +35,7 @@ public class CarController {
     public String listCars(Model model){
         model.addAttribute("cars", carService.findAllCars());
         model.addAttribute("branchesAllValues", branchService.findAllBranches());
-        return "list-cars";
+        return "car-list";
     }
 
     @GetMapping("/addCar")
@@ -87,7 +87,7 @@ public class CarController {
 
         model.addAttribute("cars", carService.findCarByModelTypeBranch(carBrandModel, carType, branch));
         model.addAttribute("branchesAllValues", branchService.findAllBranches());
-        return "list-cars";
+        return "car-list";
     }
 
 

@@ -15,6 +15,6 @@ public class EmployeeController {
     @GetMapping("/employees")
     public String listCars(Model model){
         model.addAttribute("employees", employeeService.findAllEmployees());
-        return "list-employees";
+        return "employee-list";
     }
 }
