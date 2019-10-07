@@ -22,10 +22,18 @@ public class EmployeeServiceImpl implements EmployeeService {
     private CarRepository carRepository;
     private EmployeeRepository employeeRepository;
 
+    @Autowired
+
+    EmployeeMapper employeeMapper2;
+
     @Override
     public List<EmployeeDTO> findAllEmployees() {
-        List<EmployeeEntity> setCars = employeeRepository.findAll();
-        return employeeMapper.listEmployeesToEmployeeDTOs(setCars);
+        List<EmployeeEntity> employeeEntities = employeeRepository.findAll();
+        List<EmployeeDTO> employeeDTOs = employeeMapper.listEmployeesToEmployeeDTOs(employeeEntities);
+
+        return employeeDTOs;
+
+
     }
 
     @Override

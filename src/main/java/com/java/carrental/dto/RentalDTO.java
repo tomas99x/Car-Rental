@@ -1,12 +1,12 @@
 package com.java.carrental.dto;
 
-import com.java.carrental.entity.BranchEntity;
 import com.java.carrental.entity.CarEntity;
 import com.java.carrental.entity.ClientEntity;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -25,12 +25,14 @@ public class RentalDTO {
 
     private BigDecimal totalPrice;
 
-    private BranchEntity startBranch;
+    private BranchDTO startBranch;
 
-    private BranchEntity endBranch;
+    private BranchDTO endBranch;
 
+    @DateTimeFormat(pattern = "yyyy-MM-dd'T'hh:mm:ss")
     private LocalDateTime startDate;
 
+    @DateTimeFormat(pattern = "yyyy-MM-dd'T'hh:mm:ss")
     private LocalDateTime endDate;
 
 }
