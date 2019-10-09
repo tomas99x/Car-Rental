@@ -9,7 +9,5 @@ import java.util.Optional;
 
 @Repository
 public interface BranchRepository extends JpaRepository<BranchEntity, Long> {
-
-
     Optional<BranchEntity> findByAddressCity(String city);
 }

@@ -16,8 +16,12 @@
                     <tr>
                         <th scope="col" th:text="#{employee.firstName}"></th>
                         <th scope="col" th:text="#{employee.lastName}"></th>
+                                <th scope="col" th:text="#{employee.workPhoneNo}"></th>
                         <th scope="col" th:text="#{employee.position}"></th>
                         <th scope="col" th:text="#{employee.branch}"></th>
+                        <th scope="col" th:text="#{employee.cars.to.care}"></th>
+                        <th style="width: 10%"></th>
+                        <th style="width: 10%"></th>
 
                     </tr>
                 </thead>
@@ -25,6 +29,7 @@
                         <tr th:each="tempEmployee : ${employees}">
                             <td th:text="${tempEmployee.firstName}"/>
                             <td th:text="${tempEmployee.lastName}"/>
+                            <td th:text="${tempEmployee.workPhoneNo}"/>
                             <td th:text="${tempEmployee.position}"/>
                             <div th:if="${tempEmployee.branch == null}" >
                                 <td th:text="${tempEmployee.branch}"/>
@@ -32,6 +37,21 @@
                             <div th:unless="${tempEmployee.branch == null}" >
                                 <td th:text="${tempEmployee.branch.address.city}"/>
                             </div>
+                            <div th:if="${tempEmployee.cars != null}" >
+                                <td>
+                                    <table class="table-info">
+                                        <tr th:each="tempCar : ${tempEmployee.cars}">
+                                            <td style="border-top:0px; padding:0.3rem;" th:text="${tempCar.carBrandModel}" />
+                                        </tr>
+                                    </table>
+                                </td>
+                            </div>
+                            <td>
+                                <a class="btn btn-primary" th:href="@{/viewEmployee(employeeId=${tempEmployee.id})}" > view </a>
+                            </td>
+                            <td>
+                                <a class="btn btn-info" th:href="@{/editEmployee(employeeId=${tempEmployee.id})}" > aktualizacja </a>
+                            </td>
 
 
                     </tr>

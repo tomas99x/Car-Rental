@@ -6,29 +6,43 @@
       layout:decorate="~{fragments/main_layout}" >
 <head>
     <meta charset="UTF-8">
-    <title th:text="#{employee.employees}"></title>
+    <title th:text="#{client.title}"></title>
 </head>
 <body>
     <div layout:fragment="content" class="container">
-        <h1 class="pt-4 pb-4" th:text="#{employee.employees}"></h1>
+        <h1 class="pt-4 pb-4" th:text="#{client.title}"></h1>
             <table class="table table-hover table-clear" >
                 <thead>
                     <tr>
                         <th scope="col" th:text="#{employee.firstName}"></th>
                         <th scope="col" th:text="#{employee.lastName}"></th>
                         <th scope="col" th:text="#{employee.branch}"></th>
-
+                        <th style="width: 10%"></th>
+                        <th style="width: 10%"></th>
                     </tr>
                 </thead>
                 <tbody>
+
                     <tr th:each="tempClient : ${clients}">
+
+
+                    <a th:href="@{/editCar(clientId=${tempClient.id})}">
+
                         <td th:text="${tempClient.firstName}"/>
+                    </a>
                         <td th:text="${tempClient.lastName}"/>
                         <td th:text="${tempClient.address.city}"/>
+
+
                         <td>
-                            <a class="btn btn-info" th:href="@{/editClient(carId=${tempClient.id})}" > update </a>
+                            <a class="btn btn-primary" th:href="@{/viewClient(clientId=${tempClient.id})}" > view </a>
                         </td>
+                        <td>
+                            <a class="btn btn-info" th:href="@{/editClient(clientId=${tempClient.id})}" > update </a>
+                        </td>
+
                     </tr>
+
                 </tbody>
             </table>
     </div>

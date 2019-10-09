@@ -1,22 +1,19 @@
 package com.java.carrental.service.impl;
 
+import com.java.carrental.controller.CarController;
 import com.java.carrental.dto.CarDTO;
-import com.java.carrental.dto.CarWithStrKeepersDTO;
-import com.java.carrental.dto.EmployeeDTO;
+import com.java.carrental.dto.CarDtoWithLongKeepers;
 import com.java.carrental.entity.BranchEntity;
 import com.java.carrental.entity.CarEntity;
 import com.java.carrental.entity.EmployeeEntity;
 import com.java.carrental.entity.enums.CarType;
 import com.java.carrental.mappers.CarMapper;
-import com.java.carrental.mappers.CarWithRentalsMapper;
-import com.java.carrental.mappers.EmployeeMapper;
 import com.java.carrental.repository.BranchRepository;
 import com.java.carrental.repository.CarRepository;
 import com.java.carrental.repository.EmployeeRepository;
 import com.java.carrental.service.CarService;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -27,47 +24,27 @@ import java.util.List;
 public class CarServiceImpl implements CarService {
 
     private CarMapper carMapper;
-    private CarWithRentalsMapper carWithRentalsMapper;
-    private EmployeeMapper employeeMapper;
     private CarRepository carRepository;
     private EmployeeRepository employeeRepository;
     private BranchRepository branchRepository;
 
-    @Autowired
-    @Qualifier("delegate")
-    private EmployeeMapper employeeMapper2;
 
     @Override
     public List<CarDTO> findAllCars() {
         List<CarEntity> carEntities = carRepository.findAll();
-        return listCarToCarDTOs(carEntities);
+        return carMapper.listCarToCarDTOs(carEntities);
     }
 
     @Override
     public CarDTO findCarById(Long id) {
         CarEntity carEntity = carRepository.findById(id).get();
-        return carToCarDTO(carEntity);
+        return carMapper.carToCarDTO(carEntity);
     }
 
-
-    private List<CarDTO> listCarToCarDTOs(List<CarEntity> carEntityList) {
-        if (carEntityList == null) {
-            return null;
-        }
-
-        List<CarDTO> carDTOs = new ArrayList<>(carEntityList.size());
-        for (CarEntity carEntity : carEntityList) {
-            carDTOs.add(carToCarDTO(carEntity));
-        }
-
-        return carDTOs;
-    }
-
-    private CarDTO carToCarDTO(CarEntity carEntity) {
-        List<EmployeeDTO> employeeDTO = employeeMapper.listEmployeesToEmployeeDTOs(carEntity.getCarKeepers());
-        CarDTO carDTO = carMapper.carToCarDTO(carEntity);
-        carDTO.setCarKeepers(employeeDTO);
-        return carDTO;
+    @Override
+    public CarDtoWithLongKeepers findCarByIdWithLongKeepers(Long id) {
+        CarEntity carEntity = carRepository.findById(id).get();
+        return carMapper.carToCarDtoWithLongKeepers(carEntity);
     }
 
 
@@ -78,9 +55,9 @@ public class CarServiceImpl implements CarService {
     }
 
     @Override
-    public CarDTO saveCarWithCarKeepersAndBranch(CarWithStrKeepersDTO carDTO) {
+    public CarDTO saveCarWithCarKeepersAndBranch(CarDtoWithLongKeepers carDTO) {
 
-        CarEntity carEntity = carWithRentalsMapper.carDtoToCar(carDTO);
+        CarEntity carEntity = carMapper.carDtoWithLongKeepersTOCar(carDTO);
 
         List<EmployeeEntity> employeeEntities = new ArrayList<>();
         if (carDTO.getCarKeepers() != null) {
@@ -91,7 +68,6 @@ public class CarServiceImpl implements CarService {
 
         BranchEntity branchEntity = null;
         if (carDTO.getBranch() != null) {
-
             branchEntity = branchRepository.findById(carDTO.getBranch()).get();
         }
 
@@ -105,7 +81,7 @@ public class CarServiceImpl implements CarService {
     public List<CarDTO> findCarByModelTypeBranch(String brandModel,  String type, String branchId) {
 
         Enum<CarType> carTypeEnum = null;
-        if (!"none".equals(type)){
+        if (!CarController.defaultValue.equals(type)){
             carTypeEnum = CarType.valueOf(type);
         }
 
@@ -117,7 +93,7 @@ public class CarServiceImpl implements CarService {
         }
 
         List<CarEntity> carEntity = carRepository.findCarByModelTypeBranch(brandModel, carTypeEnum, branchEntity);
-        return listCarToCarDTOs(carEntity);
+        return carMapper.listCarToCarDTOs(carEntity);
     }
 
 }

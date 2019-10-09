@@ -13,6 +13,8 @@ import javax.persistence.Embeddable;
 @Embeddable
 public class Address {
 
+    private String phoneNo;
+
     @Column(nullable = false, length = 80)
     private String street;
 

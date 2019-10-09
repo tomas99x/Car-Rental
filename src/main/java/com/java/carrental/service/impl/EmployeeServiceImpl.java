@@ -23,17 +23,12 @@ public class EmployeeServiceImpl implements EmployeeService {
     private EmployeeRepository employeeRepository;
 
     @Autowired
-
     EmployeeMapper employeeMapper2;
 
     @Override
     public List<EmployeeDTO> findAllEmployees() {
         List<EmployeeEntity> employeeEntities = employeeRepository.findAll();
-        List<EmployeeDTO> employeeDTOs = employeeMapper.listEmployeesToEmployeeDTOs(employeeEntities);
-
-        return employeeDTOs;
-
-
+        return employeeMapper.listEmployeesToEmployeeDTOs(employeeEntities);
     }
 
     @Override

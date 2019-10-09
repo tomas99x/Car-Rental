@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://thymeleaf.org"
+      xmlns:layout="http//www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragments/main_layout}" >
+<head>
+    <meta charset="UTF-8">
+    <title th:text="#{client.view.form.title}"></title>
+</head>
+<body>
+    <div layout:fragment="content" class="container">
+        <h1 class="pt-4 pb-4" th:text="#{client.view.form.title}"></h1>
+        <div class="row">
+            <table class="table table-hover table-clear col-sm-6" th:object="${client}" >
+                <tbody>
+                    <tr>
+                        <td th:text="#{client.firstName}" style="width: 200px"></td>
+                        <td th:text="${client.firstName}"></td>
+                    </tr>
+                    <tr>
+                        <td th:text="#{client.lastName}"></td>
+                        <td th:text="${client.lastName}"></td>
+                    </tr>
+                    <tr>
+                        <td th:text="#{client.cardNumber }"></td>
+                        <td th:text="${client.cardNumber }"></td>
+                    </tr>
+                    <tr>
+                        <td th:text="#{client.birthDate}"></td>
+                        <td th:text="#{client.birthDate}"></td>
+
+                    </tr>
+                    <tr>
+                        <td th:text="#{client.address.street}"></td>
+                        <td th:text="${client.address.street}"></td>
+
+                    </tr>
+                    <tr>
+                        <td th:text="#{client.address.houseNo}"></td>
+                        <td th:text="${client.address.houseNo}"></td>
+
+                    </tr>
+                    <tr>
+                        <td th:text="#{client.address.postCode}"></td>
+                        <td th:text="${client.address.postalCode}"></td>
+
+                    </tr>
+                    <tr>
+                        <td th:text="#{client.address.city}"></td>
+                        <td th:text="${client.address.city}"></td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="col-sm-2 float-right" >
+                <a class="btn btn-info" th:href="@{/editClient(clientId=${client.id})}" > update </a>
+            </div>
+        </div>
+
+        <h3 class="pt-4 pb-4" th:text="#{client.view.form.rentals}"></h3>
+
+        <table class="table table-hover table-clear" >
+            <thead>
+            <tr>
+                <th scope="col" th:text="#{rental.car}"></th>
+                <th scope="col" th:text="#{rental.price}"></th>
+                <th scope="col" th:text="#{rental.startBranch}"></th>
+                <th scope="col" th:text="#{rental.endBranch}"></th>
+                <th scope="col" th:text="#{rental.startDate}"></th>
+                <th scope="col" th:text="#{rental.endDate}"></th>
+            </tr>
+            </thead>
+            <tbody>
+                <tr th:each="tempRental : ${rentals}">
+                    <td>
+                        <a th:href="@{/editCar(carId=${tempRental.car.id})}">
+                            <div style="height:70%;width:50%" th:text="${tempRental.car.carBrandModel}"/>
+                        </a>
+                    </td>
+                    <td th:text="${tempRental.totalPrice}"/>
+                    <td th:text="${tempRental.startBranch.address.city}"/>
+                    <td th:text="${tempRental.endBranch != null} ? ${tempRental.endBranch.address.city} : ${tempRental.endBranch}" />
+                    <td th:text="${tempRental.startDate}"/>
+                    <td th:text="${tempRental.endDate}" />
+                </tr>
+            </tbody>
+        </table>
+
+    </div>
+</body>
+</html>

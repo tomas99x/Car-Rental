@@ -8,7 +8,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.format.annotation.DateTimeFormat;
 
-import javax.validation.constraints.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -16,7 +17,7 @@ import java.util.List;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class CarWithStrKeepersDTO {
+public class CarDtoWithLongKeepers {
 
     private Long id;
 
@@ -45,6 +46,6 @@ public class CarWithStrKeepersDTO {
 
     private Long branch;
 
-
+    private List<RentalDTO> rentals;
 
 }

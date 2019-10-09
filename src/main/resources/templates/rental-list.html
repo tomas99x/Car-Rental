@@ -27,16 +27,23 @@
                 </thead>
                 <tbody>
                     <tr th:each="tempRental : ${rentals}">
-                        <td th:text="${tempRental.client.firstName}"/>
-                        <td th:text="${tempRental.client.lastName}"/>
+                        <td>
+                            <a th:href="@{/viewClient(clientId=${tempRental.client.id})}">
+                                <div style="height:70%;width:50%" th:text="${tempRental.client.firstName}" />
+                            </a>
 
-                        <td >
-                            <a th:href="@{/editCar(carId=${tempRental.car.id})}">
-                                <div style="height:70%;width:50%" th:text="${tempRental.car.carBrandModel}">
-
-                                </div>
+                        <td>
+                            <a th:href="@{/viewClient(clientId=${tempRental.client.id})}">
+                                <div style="height:70%;width:50%" th:text="${tempRental.client.lastName}" />
                             </a>
                         </td>
+
+                        <td>
+                            <a th:href="@{/editCar(carId=${tempRental.car.id})}">
+                                <div style="height:70%;width:50%" th:text="${tempRental.car.carBrandModel}"/>
+                            </a>
+                        </td>
+
                         <td th:text="${tempRental.totalPrice}"/>
                         <td th:text="${tempRental.startBranch.address.city}"/>
                         <td th:text="${tempRental.endBranch != null} ? ${tempRental.endBranch.address.city} : ${tempRental.endBranch}" />

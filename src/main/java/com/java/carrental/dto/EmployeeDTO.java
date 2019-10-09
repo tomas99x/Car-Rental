@@ -20,6 +20,8 @@ public class EmployeeDTO {
 
     private String lastName;
 
+    private String workPhoneNo;
+
     private EmployeePosition position;
 
     private BranchDTO branch;

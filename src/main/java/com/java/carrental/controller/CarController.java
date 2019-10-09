@@ -1,10 +1,8 @@
 package com.java.carrental.controller;
 
 import com.java.carrental.dto.CarDTO;
-import com.java.carrental.dto.CarWithStrKeepersDTO;
-import com.java.carrental.dto.EmployeeDTO;
-import com.java.carrental.mappers.CarWithRentalsMapper;
-import com.java.carrental.mappers.EmployeeMapper;
+import com.java.carrental.dto.CarDtoWithLongKeepers;
+import com.java.carrental.mappers.CarMapper;
 import com.java.carrental.service.BranchService;
 import com.java.carrental.service.CarService;
 import com.java.carrental.service.EmployeeService;
@@ -19,17 +17,17 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.validation.Valid;
-import java.util.ArrayList;
 
 @AllArgsConstructor(onConstructor = @__(@Autowired))
 @Controller
 public class CarController {
 
     CarService carService;
+    CarMapper carMapper;
     EmployeeService employeeService;
-    EmployeeMapper employeeMapper;
     BranchService branchService;
-    CarWithRentalsMapper carWithRentalsMapper;
+
+    public static final String defaultValue = "none";
 
     @GetMapping("/cars")
     public String listCars(Model model){
@@ -47,7 +45,7 @@ public class CarController {
     }
 
     @PostMapping("/addCar")
-    public String addCar(@ModelAttribute("car") @Valid CarWithStrKeepersDTO carDTO, BindingResult bindingResult, Model model){
+    public String addCar(@ModelAttribute("car") @Valid CarDtoWithLongKeepers carDTO, BindingResult bindingResult, Model model){
 
         if (bindingResult.hasErrors()) {
             System.out.println("BINDING RESULT ERROR");
@@ -56,24 +54,12 @@ public class CarController {
             return "car-form";
         }
         carService.saveCarWithCarKeepersAndBranch(carDTO);
-
         return "redirect:/cars";
     }
 
     @GetMapping("/editCar")
-    public String editCarForm(Model model,  @RequestParam(name = "carId") Long carId){
-
-        CarDTO carDTO = carService.findCarById(carId);
-        CarWithStrKeepersDTO carWithStrKeepersDTO = carWithRentalsMapper.carDtoToCarWithStrKeepersDto(carDTO);
-
-            if ( carDTO.getCarKeepers() !=null && !carDTO.getCarKeepers().isEmpty()  ) {
-                carWithStrKeepersDTO.setCarKeepers(new ArrayList<>());
-                for (EmployeeDTO employeeDTO : carDTO.getCarKeepers()) {
-                    carWithStrKeepersDTO.getCarKeepers().add(employeeDTO.getId());
-                }
-            }
-
-        model.addAttribute("car", carWithStrKeepersDTO);
+    public String editCarForm(Model model, @RequestParam(name = "carId") Long carId){
+        model.addAttribute("car", carService.findCarByIdWithLongKeepers(carId));
         model.addAttribute("keepersAllValues", employeeService.findAllEmployees());
         model.addAttribute("branchesAllValues", branchService.findAllBranches());
         return "car-update-form";
@@ -84,11 +70,9 @@ public class CarController {
                                       @RequestParam(defaultValue = "null") String carType,
                                       @RequestParam(defaultValue = "none") String branch){
 
-
         model.addAttribute("cars", carService.findCarByModelTypeBranch(carBrandModel, carType, branch));
         model.addAttribute("branchesAllValues", branchService.findAllBranches());
         return "car-list";
     }
-
 
 }

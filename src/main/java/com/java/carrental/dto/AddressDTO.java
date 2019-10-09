@@ -11,6 +11,8 @@ import lombok.Setter;
 @AllArgsConstructor
 public class AddressDTO {
 
+    private String phoneNo;
+
     private String street;
 
     private String houseNo;

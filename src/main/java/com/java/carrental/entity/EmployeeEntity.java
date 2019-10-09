@@ -27,6 +27,9 @@ public class EmployeeEntity {
     private String lastName;
 
     @Column(nullable = false)
+    private String workPhoneNo;
+
+    @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private EmployeePosition position;
 
