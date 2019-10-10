@@ -22,7 +22,7 @@
 
                         <select class="form-control"  name="carType">
 
-                            <option th:text="#{car.select.type}" th:value="none"></option>
+                            <option th:text="#{car.select.type}" th:value="${T(com.java.carrental.constants.ModelConstants).NO_VALUE}"></option>
                             <option th:each="type : ${T(com.java.carrental.entity.enums.CarType).values()}"
                                     th:value="${type}" th:text="${type}"></option>
                         </select>
@@ -31,7 +31,7 @@
 
                         <select class="form-control"  name="branch">
 
-                            <option th:text="#{car.select.branch}" th:value="none"></optiont>
+                            <option th:text="#{car.select.branch}" th:value="${T(com.java.carrental.constants.ModelConstants).NO_VALUE}"></option>
                             <option th:each="branch : ${branchesAllValues}" th:value="${branch.id}" th:text="${branch.address.city}">
                                     </option>
 

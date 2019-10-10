@@ -1,5 +1,6 @@
 package com.java.carrental.controller;
 
+import com.java.carrental.constants.ViewNames;
 import com.java.carrental.dto.BranchDTO;
 import com.java.carrental.service.BranchService;
 import com.java.carrental.service.EmployeeService;
@@ -21,7 +22,7 @@ public class BranchController {
     public String branchList(Model model){
 
         model.addAttribute("branches", branchService.findAllBranches());
-        return "branch-list";
+        return ViewNames.BRANCH_LIST;
     }
 
     @GetMapping("viewBranch")
@@ -31,6 +32,6 @@ public class BranchController {
         BranchDTO branchDTO = branchService.findBranchById(branchId);
         model.addAttribute("branch", branchDTO);
         model.addAttribute("employees", employeeService.findEmployeesByBranch(branchDTO));
-        return "branch-view-form";
+        return ViewNames.BRANCH_VIEW_FORM;
     }
 }

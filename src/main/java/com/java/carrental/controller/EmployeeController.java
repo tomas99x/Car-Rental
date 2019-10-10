@@ -1,5 +1,6 @@
 package com.java.carrental.controller;
 
+import com.java.carrental.constants.ViewNames;
 import com.java.carrental.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,7 +16,7 @@ public class EmployeeController {
     @GetMapping("/employeeList")
     public String listCars(Model model){
         model.addAttribute("employees", employeeService.findAllEmployees());
-        return "employee-list";
+        return ViewNames.EMPLOYEE_LIST;
     }
 
 

@@ -1,5 +1,6 @@
 package com.java.carrental.controller;
 
+import com.java.carrental.constants.ViewNames;
 import com.java.carrental.service.ClientService;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,14 +18,14 @@ public class ClientController {
     @GetMapping("/clientList")
     public String clientList(Model model){
         model.addAttribute("clients", clientService.findAllClients());
-        return "client-list";
+        return ViewNames.CLIENT_LIST;
     }
 
     @GetMapping("/viewClient")
     public String viewCarForm(Model model, @RequestParam(name = "clientId") Long clientId){
         model.addAttribute("client", clientService.findClientById(clientId));
         model.addAttribute("rentals", clientService.findClientRentals(clientId));
-        return "client-view-form";
+        return ViewNames.CLIENT_VIEW_FORM;
     }
 
 }

@@ -1,5 +1,6 @@
 package com.java.carrental.controller;
 
+import com.java.carrental.constants.ViewNames;
 import com.java.carrental.service.RentalService;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,6 @@ public class RentalController {
     @GetMapping("/rentalList")
     public String findAllRentals(Model model){
         model.addAttribute("rentals", rentalService.findAllRentals());
-        return "rental-list";
+        return ViewNames.RENTAL_LIST;
     }
 }

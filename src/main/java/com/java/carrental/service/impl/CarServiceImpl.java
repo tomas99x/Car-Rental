@@ -1,6 +1,6 @@
 package com.java.carrental.service.impl;
 
-import com.java.carrental.controller.CarController;
+import com.java.carrental.constants.ModelConstants;
 import com.java.carrental.dto.CarDTO;
 import com.java.carrental.dto.CarDtoWithLongKeepers;
 import com.java.carrental.entity.BranchEntity;
@@ -81,13 +81,13 @@ public class CarServiceImpl implements CarService {
     public List<CarDTO> findCarByModelTypeBranch(String brandModel,  String type, String branchId) {
 
         Enum<CarType> carTypeEnum = null;
-        if (!CarController.NOVALUE.equals(type)){
+        if (!ModelConstants.NO_VALUE.equals(type)){
             carTypeEnum = CarType.valueOf(type);
         }
 
         Long id;
         BranchEntity branchEntity = null;
-        if (!"none".equals(branchId)) {
+        if (!ModelConstants.NO_VALUE.equals(branchId)) {
             id = Long.parseLong(branchId);
             branchEntity = branchRepository.findById(id).get();
         }

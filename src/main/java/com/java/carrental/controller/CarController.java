@@ -1,5 +1,7 @@
 package com.java.carrental.controller;
 
+import com.java.carrental.constants.ModelConstants;
+import com.java.carrental.constants.ViewNames;
 import com.java.carrental.dto.CarDTO;
 import com.java.carrental.dto.CarDtoWithLongKeepers;
 import com.java.carrental.mappers.CarMapper;
@@ -27,13 +29,12 @@ public class CarController {
     EmployeeService employeeService;
     BranchService branchService;
 
-    public static final String NOVALUE = "none";
 
     @GetMapping("/carList")
     public String listCars(Model model){
         model.addAttribute("cars", carService.findAllCars());
         model.addAttribute("branchesAllValues", branchService.findAllBranches());
-        return "/car-list";
+        return ViewNames.CAR_LIST;
     }
 
     @GetMapping("/addCar")
@@ -41,7 +42,7 @@ public class CarController {
         model.addAttribute("car", new CarDTO());
         model.addAttribute("keepersAllValues", employeeService.findAllEmployees());
         model.addAttribute("branchesAllValues", branchService.findAllBranches());
-        return "car-add-form";
+        return ViewNames.CAR_ADD_FORM;
     }
 
     @PostMapping("/addCar")
@@ -51,10 +52,10 @@ public class CarController {
             System.out.println("BINDING RESULT ERROR");
             model.addAttribute("keepersAllValues", employeeService.findAllEmployees());
             model.addAttribute("branchesAllValues", branchService.findAllBranches());
-            return "car-add-form";
+            return ViewNames.CAR_ADD_FORM;
         }
         carService.saveCarWithCarKeepersAndBranch(carDTO);
-        return "redirect:/cars";
+        return "redirect:/carList";
     }
 
     @GetMapping("/editCar")
@@ -62,17 +63,17 @@ public class CarController {
         model.addAttribute("car", carService.findCarByIdWithLongKeepers(carId));
         model.addAttribute("keepersAllValues", employeeService.findAllEmployees());
         model.addAttribute("branchesAllValues", branchService.findAllBranches());
-        return "car-update-form";
+        return ViewNames.CAR_UPDATE_FORM;
     }
 
     @GetMapping("/search")
     public String searchCarTypeBranch(Model model, @RequestParam(defaultValue = "")String carBrandModel,
-                                      @RequestParam(defaultValue = "null") String carType,
-                                      @RequestParam(defaultValue = "none") String branch){
+                                      @RequestParam(defaultValue = ModelConstants.NO_VALUE) String carType,
+                                      @RequestParam(defaultValue = ModelConstants.NO_VALUE) String branch){
 
         model.addAttribute("cars", carService.findCarByModelTypeBranch(carBrandModel, carType, branch));
         model.addAttribute("branchesAllValues", branchService.findAllBranches());
-        return "car-list";
+        return ViewNames.CAR_LIST;
     }
 
 }
