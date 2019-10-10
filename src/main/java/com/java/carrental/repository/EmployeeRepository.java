@@ -1,16 +1,21 @@
 package com.java.carrental.repository;
 
+import com.java.carrental.entity.BranchEntity;
 import com.java.carrental.entity.EmployeeEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
 import java.util.Optional;
 
 
 @Repository
 public interface EmployeeRepository extends JpaRepository<EmployeeEntity, Long> {
+
+
+    List<EmployeeEntity> findByBranch(BranchEntity branchEntity);
 
     @Query("SELECT f FROM EmployeeEntity f WHERE LOWER(f.firstName) = LOWER(:name)")
     EmployeeEntity retrieveByName(@Param("name") String name);

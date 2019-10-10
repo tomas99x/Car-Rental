@@ -8,5 +8,5 @@ public interface RentalService {
 
     List<RentalDTO> findAllRentals();
 
-    List<RentalDTO> findByClient(Long clientId);
+    List<RentalDTO> findRentalByClient(Long clientId);
 }

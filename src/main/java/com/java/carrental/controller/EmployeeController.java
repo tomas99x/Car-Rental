@@ -12,7 +12,7 @@ public class EmployeeController {
     @Autowired
     EmployeeService employeeService;
 
-    @GetMapping("/employees")
+    @GetMapping("/employeeList")
     public String listCars(Model model){
         model.addAttribute("employees", employeeService.findAllEmployees());
         return "employee-list";

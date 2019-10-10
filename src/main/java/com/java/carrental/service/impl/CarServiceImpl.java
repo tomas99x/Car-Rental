@@ -81,7 +81,7 @@ public class CarServiceImpl implements CarService {
     public List<CarDTO> findCarByModelTypeBranch(String brandModel,  String type, String branchId) {
 
         Enum<CarType> carTypeEnum = null;
-        if (!CarController.defaultValue.equals(type)){
+        if (!CarController.NOVALUE.equals(type)){
             carTypeEnum = CarType.valueOf(type);
         }
 

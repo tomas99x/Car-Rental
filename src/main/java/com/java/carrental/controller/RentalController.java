@@ -13,8 +13,7 @@ public class RentalController {
 
     RentalService rentalService;
 
-
-    @GetMapping("/rentals")
+    @GetMapping("/rentalList")
     public String findAllRentals(Model model){
         model.addAttribute("rentals", rentalService.findAllRentals());
         return "rental-list";

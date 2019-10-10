@@ -33,7 +33,7 @@ public class ClientServiceImpl implements ClientService {
 
     @Override
     public List<RentalDTO>  findClientRentals(Long clientId){
-        return rentalService.findByClient(clientId);
+        return rentalService.findRentalByClient(clientId);
     }
 
 

@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://thymeleaf.org"
+      xmlns:layout="http//www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragments/main_layout}" >
+<head>
+    <meta charset="UTF-8">
+    <title th:text="#{client.view.form.title}"></title>
+</head>
+<body>
+    <div layout:fragment="content" class="container">
+        <h1 class="pt-4 pb-4" th:text="#{client.view.form.title}"></h1>
+        <div class="row">
+            <table class="table table-hover table-clear col-sm-6" th:object="${client}" >
+                <tbody>
+                    <tr>
+                        <td th:text="#{branch.street}" style="width: 200px"></td>
+                        <td th:text="${branch.address.street}"></td>
+                    </tr>
+                    <tr>
+                        <td th:text="#{branch.houseNo}"></td>
+                        <td th:text="${branch.address.houseNo}"></td>
+                    </tr>
+                    <tr>
+                        <td th:text="#{branch.postalCode}"></td>
+                        <td th:text="${branch.address.postalCode }"></td>
+                    </tr>
+                    <tr>
+                        <td th:text="#{branch.city}"></td>
+                        <td th:text="${branch.address.city}"></td>
+
+                    </tr>
+                    <tr>
+                        <td th:text="#{branch.phoneNo}"></td>
+                        <td th:text="${branch.address.phoneNo}"></td>
+
+                    </tr>
+
+
+                </tbody>
+            </table>
+            <div class="col-sm-2 float-right" >
+                <a class="btn btn-info" th:href="@{/editBranch(branchId=${branch.id})}" > update </a>
+            </div>
+        </div>
+
+        <h3 class="pt-4 pb-4" th:text="#{client.view.form.rentals}"></h3>
+
+
+
+        <table class="table table-hover table-clear" >
+            <thead>
+            <tr>
+                <th scope="col" th:text="#{employee.firstName}"></th>
+                <th scope="col" th:text="#{employee.lastName}"></th>
+                <th scope="col" th:text="#{employee.workPhoneNo}"></th>
+                <th scope="col" th:text="#{employee.position}"></th>
+                <th scope="col" th:text="#{employee.branch}"></th>
+                <th scope="col" th:text="#{employee.cars.to.care}"></th>
+                <th style="width: 10%"></th>
+                <th style="width: 10%"></th>
+
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="tempEmployee : ${employees}">
+                <td th:text="${tempEmployee.firstName}"/>
+                <td th:text="${tempEmployee.lastName}"/>
+                <td th:text="${tempEmployee.workPhoneNo}"/>
+                <td th:text="${tempEmployee.position}"/>
+                <div th:if="${tempEmployee.branch == null}" >
+                    <td th:text="${tempEmployee.branch}"/>
+                </div>
+                <div th:unless="${tempEmployee.branch == null}" >
+                    <td th:text="${tempEmployee.branch.address.city}"/>
+                </div>
+                <div th:if="${tempEmployee.cars != null}" >
+                    <td>
+                        <table class="table-info">
+                            <tr th:each="tempCar : ${tempEmployee.cars}">
+                                <td style="border-top:0px; padding:0.3rem;" th:text="${tempCar.carBrandModel}" />
+                            </tr>
+                        </table>
+                    </td>
+                </div>
+                <td>
+                    <a class="btn btn-primary" th:href="@{/viewEmployee(employeeId=${tempEmployee.id})}" > view </a>
+                </td>
+                <td>
+                    <a class="btn btn-info" th:href="@{/editEmployee(employeeId=${tempEmployee.id})}" > aktualizacja </a>
+                </td>
+
+
+            </tr>
+            </tbody>
+        </table>
+
+    </div>
+</body>
+</html>

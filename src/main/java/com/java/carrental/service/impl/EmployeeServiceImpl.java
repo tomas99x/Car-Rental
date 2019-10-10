@@ -1,7 +1,10 @@
 package com.java.carrental.service.impl;
 
+import com.java.carrental.dto.BranchDTO;
 import com.java.carrental.dto.EmployeeDTO;
+import com.java.carrental.entity.BranchEntity;
 import com.java.carrental.entity.EmployeeEntity;
+import com.java.carrental.mappers.BranchMapper;
 import com.java.carrental.mappers.CarMapper;
 import com.java.carrental.mappers.EmployeeMapper;
 import com.java.carrental.repository.CarRepository;
@@ -21,9 +24,8 @@ public class EmployeeServiceImpl implements EmployeeService {
     private EmployeeMapper employeeMapper;
     private CarRepository carRepository;
     private EmployeeRepository employeeRepository;
+    private BranchMapper branchMapper;
 
-    @Autowired
-    EmployeeMapper employeeMapper2;
 
     @Override
     public List<EmployeeDTO> findAllEmployees() {
@@ -54,11 +56,17 @@ public class EmployeeServiceImpl implements EmployeeService {
         List<EmployeeEntity> employeeEntities = employeeRepository.findAll();
         List<EmployeeDTO> employeeDTO = employeeMapper.listEmployeesToEmployeeDTOs(employeeEntities);
         for (int i = 0; i < employeeDTO.size(); i++ ) {
-            if (employeeEntities.get(i).getCars().size() > 0) {
+            if (!employeeEntities.get(i).getCars().isEmpty()) {
                 employeeDTO.get(i).setCars(carMapper.listCarToCarDTOs(employeeEntities.get(i).getCars()));
             }
         }
         return employeeDTO;
+    }
+
+    @Override
+    public List<EmployeeDTO>findEmployeesByBranch(BranchDTO branchDTO){
+        BranchEntity branchEntity = branchMapper.branchDtoToBranch(branchDTO);
+        return employeeMapper.listEmployeesToEmployeeDTOs(employeeRepository.findByBranch(branchEntity));
     }
 
 }

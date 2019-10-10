@@ -26,7 +26,7 @@ public class RentalServiceImpl implements RentalService {
     }
 
     @Override
-    public List<RentalDTO> findByClient(Long clientId){
+    public List<RentalDTO> findRentalByClient(Long clientId){
         ClientEntity clientEntity = clientRepository.findById(clientId).get();
         return rentalMapper.listRentalsToRentalDTOs(rentalRepository.findByClient(clientEntity));
     }

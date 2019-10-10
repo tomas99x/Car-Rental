@@ -27,13 +27,13 @@ public class CarController {
     EmployeeService employeeService;
     BranchService branchService;
 
-    public static final String defaultValue = "none";
+    public static final String NOVALUE = "none";
 
-    @GetMapping("/cars")
+    @GetMapping("/carList")
     public String listCars(Model model){
         model.addAttribute("cars", carService.findAllCars());
         model.addAttribute("branchesAllValues", branchService.findAllBranches());
-        return "car-list";
+        return "/car-list";
     }
 
     @GetMapping("/addCar")
@@ -41,7 +41,7 @@ public class CarController {
         model.addAttribute("car", new CarDTO());
         model.addAttribute("keepersAllValues", employeeService.findAllEmployees());
         model.addAttribute("branchesAllValues", branchService.findAllBranches());
-        return "car-form";
+        return "car-add-form";
     }
 
     @PostMapping("/addCar")
@@ -51,7 +51,7 @@ public class CarController {
             System.out.println("BINDING RESULT ERROR");
             model.addAttribute("keepersAllValues", employeeService.findAllEmployees());
             model.addAttribute("branchesAllValues", branchService.findAllBranches());
-            return "car-form";
+            return "car-add-form";
         }
         carService.saveCarWithCarKeepersAndBranch(carDTO);
         return "redirect:/cars";

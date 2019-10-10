@@ -9,5 +9,5 @@ public interface BranchService {
 
     List<BranchDTO> findAllBranches();
 
-    BranchDTO findById(Long id);
+    BranchDTO findBranchById(Long id);
 }

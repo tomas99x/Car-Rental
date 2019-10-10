@@ -23,7 +23,7 @@ public class BranchServiceImpl implements BranchService {
     }
 
     @Override
-    public BranchDTO findById(Long id) {
+    public BranchDTO findBranchById(Long id) {
         return branchMapper.branchToBranchDTO(branchRepository.findById(id).get());
     }
 }
