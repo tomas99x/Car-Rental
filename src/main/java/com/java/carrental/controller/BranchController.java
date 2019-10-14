@@ -34,4 +34,14 @@ public class BranchController {
         model.addAttribute("employees", employeeService.findEmployeesByBranch(branchDTO));
         return ViewNames.BRANCH_VIEW_FORM;
     }
+
+    //TODO implement addBranchForm method
+    public String addBranchForm(){
+        return null;
+    }
+
+    //TODO implement editBranchForm method
+    public String editBranchForm(){
+        return null;
+    }
 }

@@ -33,10 +33,10 @@
                         <td th:text="${branch.address.phoneNo}"/>
 
                         <td>
-                            <a class="btn btn-primary" th:href="@{/viewBranch(branchId=${branch.id}, branchCity=${branch.address.city})}" > view </a>
+                            <a class="btn btn-primary" th:href="@{/viewBranch(branchId=${branch.id}, branchCity=${branch.address.city})}" th:text="#{view.button}"></a>
                         </td>
                         <td>
-                            <a class="btn btn-info" th:href="@{/editBranch(branchId=${branch.id})}" > update </a>
+                            <a class="btn btn-info" th:href="@{/editBranch(branchId=${branch.id})}" th:text="#{update.button}"> </a>
                         </td>
 
                     </tr>

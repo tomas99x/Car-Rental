@@ -77,7 +77,7 @@
 
                         <ul>
                             <li th:each="branchOne : ${branchesAllValues}">
-                                <input class="form-check-input" type="radio" th:field="*{branch}" th:value="${branchOne.id}" />
+                                <input class="form-check-input" type="radio" th:field="*{branch.id}" th:value="${branchOne.id}" />
                                 <label class="form-check-label m-1"  th:text="${branchOne.address.city}" ></label>
                             </li>
                         </ul>
@@ -91,7 +91,7 @@
                     <div class="form-check">
                         <ul>
                             <li th:each="keeper : ${keepersAllValues}">
-                                <input class="form-check-input" type="checkbox" th:field="*{carKeepers}" th:value="${keeper.id}"/>
+                                <input class="form-check-input" type="checkbox" th:field="*{carKeepers[0].id}" th:value="${keeper.id}"/>
                                 <label class="form-check-label m-1" th:text="${keeper.firstName}" ></label>
                                 <label class="form-check-label m-1" th:text="${keeper.lastName}" ></label>
                                 <label class="form-check-label m-1" th:text="${keeper.position}" ></label>

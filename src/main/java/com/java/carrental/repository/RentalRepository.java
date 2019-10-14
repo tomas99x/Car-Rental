@@ -5,10 +5,16 @@ import com.java.carrental.entity.RentalEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Repository
-public interface RentalRepository extends JpaRepository<RentalEntity, Long>{
+public interface RentalRepository extends JpaRepository<RentalEntity, Long> {
 
     List<RentalEntity> findByClient(ClientEntity clientEntity);
+
+    List<RentalEntity> findAllByStartDateBetween(LocalDateTime rentalStartDateStart, LocalDateTime rentalStartDateEnd);
+
+    List<RentalRepository> findAllByCar(ClientEntity clientEntity);
+
 }

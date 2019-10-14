@@ -2,6 +2,7 @@ package com.java.carrental.service.impl;
 
 import com.java.carrental.dto.ClientDTO;
 import com.java.carrental.dto.RentalDTO;
+import com.java.carrental.entity.ClientEntity;
 import com.java.carrental.mappers.ClientMapper;
 import com.java.carrental.repository.ClientRepository;
 import com.java.carrental.service.ClientService;
@@ -22,20 +23,19 @@ public class ClientServiceImpl implements ClientService {
     RentalService rentalService;
 
     @Override
-    public List<ClientDTO> findAllClients(){
+    public List<ClientDTO> findAllClients() {
         return clientMapper.listClientToClientDtos(clientRepository.findAll());
     }
 
     @Override
-    public ClientDTO findClientById(Long clientId){
-        return clientMapper.clientToClientDTO(clientRepository.findById(clientId).get());
+    public ClientDTO findClientById(Long clientId) {
+        return clientMapper.clientToClientDTO(clientRepository.findById(clientId).orElse(new ClientEntity()));
     }
 
     @Override
-    public List<RentalDTO>  findClientRentals(Long clientId){
-        return rentalService.findRentalByClient(clientId);
+    public List<RentalDTO> findClientRentals(Long clientId) {
+        return rentalService.findRentalByClientId(clientId);
     }
-
 
 
 }

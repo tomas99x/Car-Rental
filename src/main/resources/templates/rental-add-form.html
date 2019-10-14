@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://thymeleaf.org"
+      xmlns:layout="http//www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragments/main_layout}" >
+<head>
+    <meta charset="UTF-8">
+    <title th:text="#{rental.add.title}"></title>
+</head>
+<body>
+    <div layout:fragment="content" class="container">
+        <h1 class="pt-4 pb-4" th:text="#{rental.add.title}"></h1>
+
+        <form th:action="@{/addRental}" th:object="${rental}" method="post">
+            <div class="form-group row">
+
+                <div class="col-sm-6">
+                    <label  th:text="#{rental.add.client}" />
+
+                    <select class="form-control"  th:field="${rental.client.id}">
+                        <option value="" th:text="#{select.button}" ></option>
+                        <option th:each="tempClient : ${allClients}"
+                                th:value="${tempClient.id}"
+                                th:text="${tempClient.firstName} + '  ' + ${tempClient.lastName}"></option>
+                    </select>
+                    <div class="text-danger small" th:if="${#fields.hasErrors('client')}" th:errors="*{client}">Name Error</div>
+
+                </div>
+
+                <div class="col-sm-6">
+                    <label th:text="#{rental.add.totalPrice}"/>
+                    <input class="form-control" type="number" th:field="*{totalPrice}"/>
+                    <div class="text-danger small"  th:if="${#fields.hasErrors('totalPrice')}" th:errors="*{totalPrice}">Name Error</div>
+
+                </div>
+
+                <div class="col-sm-6">
+                    <label  th:text="#{rental.add.startDate}" />
+                    <input class="form-control" type="datetime-local" th:field="*{startDate}"/>
+                    <div class="text-danger small" th:if="${#fields.hasErrors('startDate')}" th:errors="*{startDate}">Name Error</div>
+
+                </div>
+
+                <div class="col-sm-6">
+                    <label  th:text="#{rental.add.endDate}" />
+                    <input class="form-control" type="datetime-local" th:field="*{endDate}"/>
+                    <div class="text-danger small" th:if="${#fields.hasErrors('endDate')}" th:errors="*{endDate}">Name Error</div>
+
+                </div>
+
+                <div class="col-sm-6" >
+                    <fieldset class="form-group">
+                        <label th:text="#{rental.add.startBranch}" />
+                        <div class="form-check">
+
+                            <ul>
+                                <li th:each="branchOne : ${branchesAllValues}">
+                                    <input class="form-check-input" type="radio" th:field="*{startBranch.id}" th:value="${branchOne.id}" />
+                                    <label class="form-check-label m-1"  th:text="${branchOne.address.city}" ></label>
+                                </li>
+                                <div class="text-danger small" th:if="${#fields.hasErrors('startBranch')}" th:errors="*{startBranch}">Name Error</div>
+                            </ul>
+                        </div>
+                    </fieldset>
+                </div>
+
+                <div class="col-sm-6" >
+                    <fieldset class="form-group">
+                        <label th:text="#{rental.add.endBranch}" />
+                        <div class="form-check">
+                            <ul>
+                                <li th:each="branchOne : ${branchesAllValues}">
+                                    <input class="form-check-input" type="radio" th:field="*{endBranch.id}" th:value="${branchOne.id}" />
+                                    <label class="form-check-label m-1"  th:text="${branchOne.address.city}" ></label>
+                                </li>
+                                <div class="text-danger small" th:if="${#fields.hasErrors('endBranch')}" th:errors="*{endBranch}"></div>
+                            </ul>
+                        </div>
+                    </fieldset>
+                </div>
+
+                <div class="col-sm-6">
+                    <label th:text="#{rental.add.car}" />
+
+                    <select class="form-control"  th:field="${rental.car.id}">
+                        <option value="" th:text="#{select.button}" >Wybierz</option>
+                        <option th:each="tempCar : ${allCars}"
+                                th:value="${tempCar.id}"
+                                th:text="${tempCar.carBrandModel} + '  '+ ${tempCar.carType} + '  ' + ${tempCar.horsePower}"></option>
+                    </select>
+                    <div class="text-danger small" th:if="${#fields.hasErrors('car')}" th:errors="${carError}">Name Error</div>
+
+                </div>
+
+            </div>
+            <button type="submit" class="btn btn-dark"  name='action' value='action1' th:text="#{add.button}" />
+        </form>
+
+
+
+
+
+
+    </div>
+</body>
+</html>

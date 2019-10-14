@@ -47,10 +47,10 @@
                                 </td>
                             </div>
                             <td>
-                                <a class="btn btn-primary" th:href="@{/viewEmployee(employeeId=${tempEmployee.id})}" > view </a>
+                                <a class="btn btn-primary" th:href="@{/viewEmployee(employeeId=${tempEmployee.id})}" th:text="#{view.button}"></a>
                             </td>
                             <td>
-                                <a class="btn btn-info" th:href="@{/editEmployee(employeeId=${tempEmployee.id})}" > aktualizacja </a>
+                                <a class="btn btn-info" th:href="@{/editEmployee(employeeId=${tempEmployee.id})}" th:text="#{update.button}"></a>
                             </td>
 
 

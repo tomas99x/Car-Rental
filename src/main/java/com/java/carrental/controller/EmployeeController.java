@@ -19,5 +19,20 @@ public class EmployeeController {
         return ViewNames.EMPLOYEE_LIST;
     }
 
+    //TODO implement viewEmployeeForm method
+    public String viewEmployeeForm(){
+        return null;
+    }
+
+    //TODO implement addEmployeeForm method
+    public String addEmployeeForm(){
+        return null;
+    }
+
+    //TODO implement editEmployeeForm method
+    public String editEmployeeForm(){
+        return null;
+    }
+
 
 }

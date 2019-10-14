@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
@@ -19,20 +20,27 @@ public class RentalDTO {
 
     private Long id;
 
+    @NotNull
     private CarEntity car;
 
+    @NotNull
     private ClientEntity client;
 
+    @NotNull(message="Wpisz poprawną wartość")
     private BigDecimal totalPrice;
 
+    @NotNull
     private BranchDTO startBranch;
 
+    @NotNull
     private BranchDTO endBranch;
 
-    @DateTimeFormat(pattern = "yyyy-MM-dd'T'hh:mm:ss")
+    @NotNull
+    @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
     private LocalDateTime startDate;
 
-    @DateTimeFormat(pattern = "yyyy-MM-dd'T'hh:mm:ss")
+    @NotNull
+    @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
     private LocalDateTime endDate;
 
 }

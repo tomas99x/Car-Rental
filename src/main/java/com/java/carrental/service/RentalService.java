@@ -8,5 +8,15 @@ public interface RentalService {
 
     List<RentalDTO> findAllRentals();
 
-    List<RentalDTO> findRentalByClient(Long clientId);
+    RentalDTO addRental (RentalDTO rentalDTO);
+
+    List<RentalDTO> findRentalByClientId(Long clientId);
+
+    RentalDTO findRentalById(Long rentalId);
+
+    List<RentalDTO> findRentalByClientLastName(String lastName);
+
+    List<RentalDTO> findAllByStartDate(String rentalStartDate);
+
+
 }

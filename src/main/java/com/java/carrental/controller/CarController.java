@@ -3,7 +3,6 @@ package com.java.carrental.controller;
 import com.java.carrental.constants.ModelConstants;
 import com.java.carrental.constants.ViewNames;
 import com.java.carrental.dto.CarDTO;
-import com.java.carrental.dto.CarDtoWithLongKeepers;
 import com.java.carrental.mappers.CarMapper;
 import com.java.carrental.service.BranchService;
 import com.java.carrental.service.CarService;
@@ -37,8 +36,13 @@ public class CarController {
         return ViewNames.CAR_LIST;
     }
 
+    //TODO implement viewCarForm method
+    public String viewCarForm(){
+        return null;
+    }
+
     @GetMapping("/addCar")
-    public String carForm(Model model){
+    public String addCarForm(Model model){
         model.addAttribute("car", new CarDTO());
         model.addAttribute("keepersAllValues", employeeService.findAllEmployees());
         model.addAttribute("branchesAllValues", branchService.findAllBranches());
@@ -46,7 +50,7 @@ public class CarController {
     }
 
     @PostMapping("/addCar")
-    public String addCar(@ModelAttribute("car") @Valid CarDtoWithLongKeepers carDTO, BindingResult bindingResult, Model model){
+    public String addCar(@ModelAttribute("car") @Valid CarDTO carDTO, BindingResult bindingResult, Model model){
 
         if (bindingResult.hasErrors()) {
             System.out.println("BINDING RESULT ERROR");
@@ -54,7 +58,7 @@ public class CarController {
             model.addAttribute("branchesAllValues", branchService.findAllBranches());
             return ViewNames.CAR_ADD_FORM;
         }
-        carService.saveCarWithCarKeepersAndBranch(carDTO);
+     //   carService.saveCarWithCarKeepersAndBranch(carDTO);
         return "redirect:/carList";
     }
 
@@ -66,7 +70,7 @@ public class CarController {
         return ViewNames.CAR_UPDATE_FORM;
     }
 
-    @GetMapping("/search")
+    @GetMapping("/searchCar")
     public String searchCarTypeBranch(Model model, @RequestParam(defaultValue = "")String carBrandModel,
                                       @RequestParam(defaultValue = ModelConstants.NO_VALUE) String carType,
                                       @RequestParam(defaultValue = ModelConstants.NO_VALUE) String branch){

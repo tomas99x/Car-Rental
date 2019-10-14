@@ -15,7 +15,7 @@ import java.time.LocalDateTime;
 @Table(name = "RENTAL")
 public class RentalEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     protected Long id;
 
     @ManyToOne
@@ -26,7 +26,7 @@ public class RentalEntity {
     @JoinColumn(name = "CLIENT_ID", nullable = false)
     private ClientEntity client;
 
-    @Column
+    @Column(nullable = false)
     private BigDecimal totalPrice;
 
     @ManyToOne
@@ -40,6 +40,6 @@ public class RentalEntity {
     @Column(nullable = false)
     private LocalDateTime startDate;
 
-    @Column
+    @Column(nullable = false)
     private LocalDateTime endDate;
 }

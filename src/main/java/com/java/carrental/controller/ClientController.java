@@ -22,10 +22,24 @@ public class ClientController {
     }
 
     @GetMapping("/viewClient")
-    public String viewCarForm(Model model, @RequestParam(name = "clientId") Long clientId){
+    public String viewClientForm(Model model, @RequestParam(name = "clientId") Long clientId){
         model.addAttribute("client", clientService.findClientById(clientId));
         model.addAttribute("rentals", clientService.findClientRentals(clientId));
         return ViewNames.CLIENT_VIEW_FORM;
     }
 
+    //TODO implement addClientForm method
+    public String addClientForm(){
+        return null;
+    }
+
+    //TODO implement editClientForm method
+    public String editClientForm(){
+        return null;
+    }
+
+    //TODO implement searchClient method
+    public String searchClient() {
+        return null;
+    }
 }

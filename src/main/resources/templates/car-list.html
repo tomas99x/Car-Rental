@@ -12,32 +12,23 @@
         <h1 class="pt-4 pb-2" th:text="#{car.cars}"></h1>
             <a class="btn btn-secondary mb-3" th:href="@{/addCar}" th:text="#{car.add}" />
 
-            <form action="/search" >
+            <form action="/searchCar" >
                 <div class="form-row align-items-center mb-3">
-
                     <div class="col-sm-3">
                        <input class="form-control" type="text" name="carBrandModel" placeholder="Wyszukaj samochów"/>
                     </div>
                     <div class="col-sm-3">
-
                         <select class="form-control"  name="carType">
-
                             <option th:text="#{car.select.type}" th:value="${T(com.java.carrental.constants.ModelConstants).NO_VALUE}"></option>
-                            <option th:each="type : ${T(com.java.carrental.entity.enums.CarType).values()}"
-                                    th:value="${type}" th:text="${type}"></option>
+                            <option th:each="type : ${T(com.java.carrental.entity.enums.CarType).values()}" th:value="${type}" th:text="${type}"></option>
                         </select>
                     </div>
                     <div class="col-sm-3">
-
                         <select class="form-control"  name="branch">
-
                             <option th:text="#{car.select.branch}" th:value="${T(com.java.carrental.constants.ModelConstants).NO_VALUE}"></option>
-                            <option th:each="branch : ${branchesAllValues}" th:value="${branch.id}" th:text="${branch.address.city}">
-                                    </option>
-
+                            <option th:each="branch : ${branchesAllValues}" th:value="${branch.id}" th:text="${branch.address.city}"></option>
                         </select>
                     </div>
-
                     <div class="col-auto">
                         <input class="btn btn-primary" type="submit" value="search" />
                    </div>
@@ -83,7 +74,7 @@
                                 </table>
                             </td>
                             <td>
-                                <a class="btn btn-info" th:href="@{/editCar(carId=${tempCar.id})}" > update </a>
+                                <a class="btn btn-info" th:href="@{/editCar(carId=${tempCar.id})}" th:text="#{update.button}"></a>
                             </td>
                     </tr>
                 </tbody>

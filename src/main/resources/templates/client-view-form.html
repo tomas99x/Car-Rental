@@ -53,7 +53,7 @@
                 </tbody>
             </table>
             <div class="col-sm-2 float-right" >
-                <a class="btn btn-info" th:href="@{/editClient(clientId=${client.id})}" > update </a>
+                <a class="btn btn-info" th:href="@{/editClient(clientId=${client.id})}" th:text="#{update.button}"></a>
             </div>
         </div>
 

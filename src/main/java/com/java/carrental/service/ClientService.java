@@ -10,5 +10,5 @@ public interface ClientService {
 
     ClientDTO findClientById(Long clientId);
 
-    List<RentalDTO>  findClientRentals(Long clientId);
+    List<RentalDTO> findClientRentals(Long clientId);
 }
