@@ -20,16 +20,16 @@ public class EmployeeEntity {
     @Column(name = "id", updatable = false, nullable = false)
     private Long id;
 
-    @Column(nullable = false)
+    @Column
     private String firstName;
 
-    @Column(nullable = false)
+    @Column
     private String lastName;
 
-    @Column(nullable = false)
+    @Column
     private String workPhoneNo;
 
-    @Column(nullable = false)
+    @Column
     @Enumerated(EnumType.STRING)
     private EmployeePosition position;
 

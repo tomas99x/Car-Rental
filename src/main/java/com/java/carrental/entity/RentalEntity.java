@@ -30,12 +30,8 @@ public class RentalEntity {
     private BigDecimal totalPrice;
 
     @ManyToOne
-    @JoinColumn(name = "BRANCH_START")
-    private BranchEntity startBranch;
-
-    @ManyToOne
-    @JoinColumn(name = "BRANCH_END")
-    private BranchEntity endBranch;
+    @JoinColumn(name = "RENTAL_BRANCH")
+    private BranchEntity rentalBranch;
 
     @Column(nullable = false)
     private LocalDateTime startDate;

@@ -14,7 +14,7 @@ import java.time.LocalDate;
 @Table(name = "CLIENT")
 public class ClientEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     protected Long id;
 
     @Column(nullable = false, length = 50)

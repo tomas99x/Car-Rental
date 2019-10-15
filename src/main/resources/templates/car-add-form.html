@@ -90,8 +90,9 @@
                     <label th:text="#{car.add.keepers}" />
                     <div class="form-check">
                         <ul>
-                            <li th:each="keeper : ${keepersAllValues}">
-                                <input class="form-check-input" type="checkbox" th:field="*{carKeepers[0].id}" th:value="${keeper.id}"/>
+                            <li th:each="keeper, status : ${keepersAllValues}">
+                                <input class="form-check-input" type="checkbox" th:field="*{carKeepers[__${status.index}__].id}"
+                                                                                th:value="${keeper.id}"/>
                                 <label class="form-check-label m-1" th:text="${keeper.firstName}" ></label>
                                 <label class="form-check-label m-1" th:text="${keeper.lastName}" ></label>
                                 <label class="form-check-label m-1" th:text="${keeper.position}" ></label>
@@ -101,7 +102,7 @@
                 </fieldset>
             </div>
 
-            <button type="submit" class="btn btn-dark" th:text="#{add.button}" />
+            <button type="submit" class="btn btn-dark" th:text="#{button.add}" />
 
         </form>
 

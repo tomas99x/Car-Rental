@@ -3,10 +3,13 @@ package com.java.carrental.service.impl;
 import com.java.carrental.constants.ModelConstants;
 import com.java.carrental.dto.CarDTO;
 import com.java.carrental.dto.CarDtoWithLongKeepers;
+import com.java.carrental.dto.EmployeeDTO;
+import com.java.carrental.dto.RentalDTO;
 import com.java.carrental.entity.BranchEntity;
 import com.java.carrental.entity.CarEntity;
 import com.java.carrental.entity.EmployeeEntity;
 import com.java.carrental.entity.enums.CarType;
+import com.java.carrental.mappers.BranchMapper;
 import com.java.carrental.mappers.CarMapper;
 import com.java.carrental.repository.BranchRepository;
 import com.java.carrental.repository.CarRepository;
@@ -24,6 +27,7 @@ import java.util.List;
 public class CarServiceImpl implements CarService {
 
     private CarMapper carMapper;
+    private BranchMapper branchMapper;
     private CarRepository carRepository;
     private EmployeeRepository employeeRepository;
     private BranchRepository branchRepository;
@@ -50,7 +54,25 @@ public class CarServiceImpl implements CarService {
 
     @Override
     public CarDTO saveCar(CarDTO carDTO) {
-        CarEntity carEntity = carRepository.save(carMapper.carDtoToCar(carDTO));
+
+        List<EmployeeEntity> employeeEntities = new ArrayList<>();
+
+        carDTO.getCarKeepers().removeIf(p-> p.getId() == null);
+
+        if (carDTO.getCarKeepers() != null) {
+            for (EmployeeDTO keeper : carDTO.getCarKeepers()) {
+
+                if (keeper.getId() != null){
+                    employeeEntities.add(employeeRepository.findById(keeper.getId()).get());
+                }
+
+            }
+        }
+
+        CarEntity carEntity = carMapper.carDtoToCar(carDTO);
+        carEntity.setCarKeepers(employeeEntities);
+
+        carEntity = carRepository.save(carEntity);
         return carMapper.carToCarDTO(carEntity);
     }
 
@@ -94,6 +116,16 @@ public class CarServiceImpl implements CarService {
 
         List<CarEntity> carEntity = carRepository.findCarByModelTypeBranch(brandModel, carTypeEnum, branchEntity);
         return carMapper.listCarToCarDTOs(carEntity);
+    }
+
+    @Override
+    public List<CarDTO> findCarsForRental(RentalDTO rentalDTO) {
+
+
+        List<CarDTO> carDTOS = carMapper.listCarToCarDTOs(carRepository.findCarsForRental(
+                branchMapper.branchDtoToBranch(rentalDTO.getRentalBranch())));
+
+        return carDTOS;
     }
 
 }

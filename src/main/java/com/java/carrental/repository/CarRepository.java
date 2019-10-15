@@ -20,4 +20,7 @@ public interface CarRepository extends JpaRepository<CarEntity, Long> {
             "                               and (:branch is null or c.branch like :branch)")
     List<CarEntity> findCarByModelTypeBranch(String brandModel, Enum carType, BranchEntity branch);
 
+    @Query("select c from CarEntity c where c.branch = :rentalBranch")
+    List<CarEntity> findCarsForRental(BranchEntity rentalBranch);
+
 }

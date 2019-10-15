@@ -47,31 +47,37 @@ public class RentalController {
     public String rentalForm (Model model){
         model.addAttribute("rental", new RentalDTO());
         model.addAttribute("branchesAllValues", branchService.findAllBranches());
-        model.addAttribute("allCars", carService.findAllCars());
+        //model.addAttribute("allCars", carService.findAllCars());
         model.addAttribute("allClients", clientService.findAllClients());
+        model.addAttribute("hiddeCarSection", true);
 
         return ViewNames.RENTAL_ADD_FORM;
     }
 
     @PostMapping("/addRental")
     public String addRentalForm (@ModelAttribute("rental") @Valid RentalDTO rentalDTO, BindingResult bindingResult,
-                                 Model model){
+                                 Model model,
+                                 @RequestParam(name = "rentalAction", required = false) String rentalAction){
         if (bindingResult.hasErrors()) {
             model.addAttribute("branchesAllValues", branchService.findAllBranches());
-            model.addAttribute("allCars", carService.findAllCars());
+            //model.addAttribute("allCars", carService.findAllCars());
             model.addAttribute("allClients", clientService.findAllClients());
+            model.addAttribute("hiddeCarSection", true);
             return ViewNames.RENTAL_ADD_FORM;
         }
 
-        if (rentalDTO.getCar().getId() == null){
-            model.addAttribute("carError", "Wybierz samochód");
+        if ("actionSearchCar".equals(rentalAction)){
             model.addAttribute("branchesAllValues", branchService.findAllBranches());
-            model.addAttribute("allCars", carService.findAllCars());
+            model.addAttribute("allCars", carService.findCarsForRental(rentalDTO));
             model.addAttribute("allClients", clientService.findAllClients());
+            model.addAttribute("hiddeCarSection", false);
             return ViewNames.RENTAL_ADD_FORM;
         }
 
-        rentalService.addRental(rentalDTO);
+        if ("actionAddRental".equals(rentalAction)){
+            rentalService.addRental(rentalDTO);
+        }
+
         return "redirect:/rentalList";
     }
 

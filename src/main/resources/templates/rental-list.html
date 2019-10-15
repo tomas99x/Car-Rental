@@ -50,8 +50,7 @@
                         <th colspan="2" th:text="#{rental.client}"></th>
                         <th scope="col" th:text="#{rental.car}"></th>
                         <th scope="col" th:text="#{rental.price}"></th>
-                        <th scope="col" th:text="#{rental.startBranch}"></th>
-                        <th scope="col" th:text="#{rental.endBranch}"></th>
+                        <th scope="col" th:text="#{rental.rentalBranch}"></th>
                         <th scope="col" th:text="#{rental.startDate}"></th>
                         <th scope="col" th:text="#{rental.endDate}"></th>
                         <th></th>
@@ -79,9 +78,7 @@
                         </td>
 
                         <td th:text="${tempRental.totalPrice}"/>
-                        <td th:text="${tempRental.startBranch.address.city}"/>
-                        <td th:text="${tempRental.endBranch != null} ? ${tempRental.endBranch.address.city} : ${tempRental.endBranch}" />
-
+                        <td th:text="${tempRental.rentalBranch.address.city}"/>
 
 
                         <td style="width: 13%" th:text="${#temporals.format(tempRental.startDate, 'dd-MM-yyyy HH:mm')}" />
@@ -89,10 +86,10 @@
                         <td style="width: 13%" th:text="${#temporals.format(tempRental.endDate, 'dd-MM-yyyy HH:mm')}" />
 
                         <td>
-                            <a class="btn btn-primary" th:href="@{/viewRental(rentalId=${tempRental.id})}" th:text="#{view.button}"></a>
+                            <a class="btn btn-primary" th:href="@{/viewRental(rentalId=${tempRental.id})}" th:text="#{button.view}"></a>
                         </td>
                         <td>
-                            <a class="btn btn-info" th:href="@{/editRental(rentalId=${tempRental.id})}" th:text="#{update.button}"></a>
+                            <a class="btn btn-info" th:href="@{/editRental(rentalId=${tempRental.id})}" th:text="#{button.update}"></a>
                         </td>
                     </tr>
                 </tbody>

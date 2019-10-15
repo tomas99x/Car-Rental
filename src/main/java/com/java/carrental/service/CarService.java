@@ -2,6 +2,7 @@ package com.java.carrental.service;
 
 import com.java.carrental.dto.CarDTO;
 import com.java.carrental.dto.CarDtoWithLongKeepers;
+import com.java.carrental.dto.RentalDTO;
 
 import java.util.List;
 
@@ -18,5 +19,7 @@ public interface CarService {
     CarDTO saveCarWithCarKeepersAndBranch(CarDtoWithLongKeepers carDTO);
 
     List<CarDTO> findCarByModelTypeBranch(String brandModel, String type, String branchId);
+
+    List<CarDTO> findCarsForRental(RentalDTO rentalDTO);
 
 }

@@ -58,13 +58,14 @@ public class CarController {
             model.addAttribute("branchesAllValues", branchService.findAllBranches());
             return ViewNames.CAR_ADD_FORM;
         }
-     //   carService.saveCarWithCarKeepersAndBranch(carDTO);
+      //  carService.saveCarWithCarKeepersAndBranch(carDTO);
+        carService.saveCar(carDTO);
         return "redirect:/carList";
     }
 
     @GetMapping("/editCar")
     public String editCarForm(Model model, @RequestParam(name = "carId") Long carId){
-        model.addAttribute("car", carService.findCarByIdWithLongKeepers(carId));
+        model.addAttribute("car", carService.findCarById(carId));
         model.addAttribute("keepersAllValues", employeeService.findAllEmployees());
         model.addAttribute("branchesAllValues", branchService.findAllBranches());
         return ViewNames.CAR_UPDATE_FORM;

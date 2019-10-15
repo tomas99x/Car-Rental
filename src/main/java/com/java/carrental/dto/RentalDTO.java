@@ -30,10 +30,7 @@ public class RentalDTO {
     private BigDecimal totalPrice;
 
     @NotNull
-    private BranchDTO startBranch;
-
-    @NotNull
-    private BranchDTO endBranch;
+    private BranchDTO rentalBranch;
 
     @NotNull
     @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
