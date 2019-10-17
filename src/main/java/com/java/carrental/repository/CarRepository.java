@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 
@@ -20,7 +21,10 @@ public interface CarRepository extends JpaRepository<CarEntity, Long> {
             "                               and (:branch is null or c.branch like :branch)")
     List<CarEntity> findCarByModelTypeBranch(String brandModel, Enum carType, BranchEntity branch);
 
-    @Query("select c from CarEntity c where c.branch = :rentalBranch")
-    List<CarEntity> findCarsForRental(BranchEntity rentalBranch);
+    @Query("select c from CarEntity c inner join c.rentals r " +
+            "where c.branch = :rentalBranch " +
+            "and (r.startDate not between :startDate and :endDate)" +
+            "and (r.endDate not between :startDate and :endDate)")
+    List<CarEntity> findCarsForRental(BranchEntity rentalBranch, LocalDateTime startDate, LocalDateTime endDate);
 
 }

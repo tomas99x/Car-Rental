@@ -37,5 +37,11 @@ public class ClientServiceImpl implements ClientService {
         return rentalService.findRentalByClientId(clientId);
     }
 
+    @Override
+    public ClientDTO addClient(ClientDTO clientDTO) {
+        ClientEntity clientEntity = clientRepository.save(clientMapper.ClientDtoToClient(clientDTO));
+        return clientMapper.clientToClientDTO(clientEntity);
+    }
+
 
 }

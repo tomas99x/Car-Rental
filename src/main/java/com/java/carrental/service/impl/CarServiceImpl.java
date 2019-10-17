@@ -19,6 +19,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -122,10 +123,19 @@ public class CarServiceImpl implements CarService {
     public List<CarDTO> findCarsForRental(RentalDTO rentalDTO) {
 
 
-        List<CarDTO> carDTOS = carMapper.listCarToCarDTOs(carRepository.findCarsForRental(
-                branchMapper.branchDtoToBranch(rentalDTO.getRentalBranch())));
+        LocalDateTime startDate = rentalDTO.getStartDate();
+        LocalDateTime endDate =  rentalDTO.getEndDate();
 
+        List<CarEntity> carEntities = carRepository.findCarsForRental(
+                branchMapper.branchDtoToBranch(rentalDTO.getRentalBranch()),
+                startDate,
+                endDate);
+
+
+        List<CarDTO> carDTOS = carMapper.listCarToCarDTOs(carEntities);
         return carDTOS;
     }
 
 }
+
+

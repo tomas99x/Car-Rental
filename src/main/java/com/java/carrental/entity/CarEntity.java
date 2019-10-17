@@ -64,6 +64,11 @@ public class CarEntity {
 //    @JoinColumn(name = "CAR_ID")
 //    private List<RentalEntity> rentals;
 
+    @OneToMany(cascade = {CascadeType.REMOVE},
+        mappedBy = "car",
+        fetch = FetchType.LAZY)
+    private List<RentalEntity> rentals;
+
     public CarEntity(String carBrandModel, CarType carType, LocalDate productionYear, CarColor carColor, Long engineCapacity, Long horsePower, Long mileage) {
         this.carType = carType;
         this.carBrandModel = carBrandModel;

@@ -38,10 +38,6 @@ public class RentalController {
         return ViewNames.RENTAL_LIST;
     }
 
-    //TODO implement viewRentalForm method
-    public String viewRentalForm(){
-        return null;
-    }
 
     @GetMapping("/addRental")
     public String rentalForm (Model model){
@@ -55,8 +51,8 @@ public class RentalController {
     }
 
     @PostMapping("/addRental")
-    public String addRentalForm (@ModelAttribute("rental") @Valid RentalDTO rentalDTO, BindingResult bindingResult,
-                                 Model model,
+    public String addRentalForm (@ModelAttribute("rental") @Valid RentalDTO rentalDTO,
+                                 BindingResult bindingResult, Model model,
                                  @RequestParam(name = "rentalAction", required = false) String rentalAction){
         if (bindingResult.hasErrors()) {
             model.addAttribute("branchesAllValues", branchService.findAllBranches());
@@ -67,8 +63,8 @@ public class RentalController {
         }
 
         if ("actionSearchCar".equals(rentalAction)){
-            model.addAttribute("branchesAllValues", branchService.findAllBranches());
             model.addAttribute("allCars", carService.findCarsForRental(rentalDTO));
+            model.addAttribute("branchesAllValues", branchService.findAllBranches());
             model.addAttribute("allClients", clientService.findAllClients());
             model.addAttribute("hiddeCarSection", false);
             return ViewNames.RENTAL_ADD_FORM;
@@ -82,10 +78,14 @@ public class RentalController {
     }
 
 
-
     //TODO implement editRentalForm method
-    public String editRentalForm(){
-        return null;
+    @GetMapping("/editRental")
+    public String editRentalForm(@RequestParam(name = "rentalId") Long rentalId, Model model){
+        model.addAttribute("rental", rentalService.findRentalById(rentalId));
+        model.addAttribute("branchesAllValues", branchService.findAllBranches());
+        model.addAttribute("allClients", clientService.findAllClients());
+        model.addAttribute("allCars", carService.findAllCars());
+        return ViewNames.RENTAL_UPDATE_FORM;
     }
 
     @GetMapping("/searchRental")

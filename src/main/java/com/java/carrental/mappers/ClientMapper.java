@@ -9,6 +9,7 @@ import java.util.List;
 @Mapper(componentModel = "spring")
 public interface ClientMapper {
 
+    //@Mapping(ignore = true, target = "rentals")
     ClientDTO clientToClientDTO(ClientEntity clientEntity);
 
     ClientEntity ClientDtoToClient(ClientDTO clientDTO);

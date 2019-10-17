@@ -6,11 +6,11 @@
       layout:decorate="~{fragments/main_layout}" >
 <head>
     <meta charset="UTF-8">
-    <title th:text="#{client.view.form.title}"></title>
+    <title th:text="#{branch.view.form.title}"></title>
 </head>
 <body>
     <div layout:fragment="content" class="container">
-        <h1 class="pt-4 pb-4" th:text="#{client.view.form.title}"></h1>
+        <h1 class="pt-4 pb-4" th:text="#{branch.view.form.title}"></h1>
         <div class="row">
             <table class="table table-hover table-clear col-sm-6" th:object="${client}" >
                 <tbody>
@@ -29,15 +29,11 @@
                     <tr>
                         <td th:text="#{branch.city}"></td>
                         <td th:text="${branch.address.city}"></td>
-
                     </tr>
                     <tr>
                         <td th:text="#{branch.phoneNo}"></td>
                         <td th:text="${branch.address.phoneNo}"></td>
-
                     </tr>
-
-
                 </tbody>
             </table>
             <div class="col-sm-2 float-right" >
@@ -45,23 +41,19 @@
             </div>
         </div>
 
-        <h3 class="pt-4 pb-4" th:text="#{client.view.form.rentals}"></h3>
-
-
+        <h3 class="pt-4 pb-4" th:text="#{branch.view.form.employees}"></h3>
 
         <table class="table table-hover table-clear" >
             <thead>
-            <tr>
-                <th scope="col" th:text="#{employee.firstName}"></th>
-                <th scope="col" th:text="#{employee.lastName}"></th>
-                <th scope="col" th:text="#{employee.workPhoneNo}"></th>
-                <th scope="col" th:text="#{employee.position}"></th>
-                <th scope="col" th:text="#{employee.branch}"></th>
-                <th scope="col" th:text="#{employee.cars.to.care}"></th>
-                <th style="width: 10%"></th>
-                <th style="width: 10%"></th>
-
-            </tr>
+                <tr>
+                    <th scope="col" th:text="#{employee.firstName}"></th>
+                    <th scope="col" th:text="#{employee.lastName}"></th>
+                    <th scope="col" th:text="#{employee.workPhoneNo}"></th>
+                    <th scope="col" th:text="#{employee.position}"></th>
+                    <th scope="col" th:text="#{employee.branch}"></th>
+                    <th scope="col" th:text="#{employee.cars.to.care}"></th>
+                    <th style="width: 10%"></th>
+                </tr>
             </thead>
             <tbody>
             <tr th:each="tempEmployee : ${employees}">
@@ -87,15 +79,9 @@
                 <td>
                     <a class="btn btn-primary" th:href="@{/viewEmployee(employeeId=${tempEmployee.id})}" th:text="#{button.view}"></a>
                 </td>
-                <td>
-                    <a class="btn btn-info" th:href="@{/editEmployee(employeeId=${tempEmployee.id})}" th:text="#{button.update}"></a>
-                </td>
-
-
             </tr>
             </tbody>
         </table>
-
     </div>
 </body>
 </html>

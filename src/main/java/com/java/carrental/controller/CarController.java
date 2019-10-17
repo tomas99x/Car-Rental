@@ -36,9 +36,12 @@ public class CarController {
         return ViewNames.CAR_LIST;
     }
 
-    //TODO implement viewCarForm method
-    public String viewCarForm(){
-        return null;
+     @GetMapping("/viewCar")
+    public String viewCarForm(@RequestParam(name = "carId") Long carId, Model model){
+
+        model.addAttribute("car", carService.findCarById(carId));
+
+        return ViewNames.CAR_VIEW_FORM;
     }
 
     @GetMapping("/addCar")

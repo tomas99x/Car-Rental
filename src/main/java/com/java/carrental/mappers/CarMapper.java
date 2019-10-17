@@ -14,6 +14,7 @@ import java.util.List;
 public interface CarMapper {
 
     @Mapping(ignore = true, target = "carKeepers")
+    @Mapping(ignore = true, target = "rentals")
     CarDTO carToCarDTO(CarEntity carEntity);
 
     @Mapping(source = "branch.id", target = "branch")

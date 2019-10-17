@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://thymeleaf.org"
+      xmlns:layout="http//www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragments/main_layout}" >
+<head>
+    <meta charset="UTF-8">
+    <title th:text="#{client.add.title}"></title>
+</head>
+<body>
+    <div layout:fragment="content" class="container">
+        <h1 class="pt-4 pb-4" th:text="#{client.add.title}"></h1>
+
+        <form th:action="@{/addClient}" th:object="${client}" method="post">
+            <div class="form-group row">
+
+                <input type="hidden" th:field="*{id}"/>
+
+                <div class="col-sm-6">
+                    <label th:text="#{client.firstName}"/>
+                    <input class="form-control" type="text" th:field="*{firstName}"/>
+                    <div class="text-danger small mb-4"  th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}"></div>
+                </div>
+
+                <div class="col-sm-6">
+                    <label th:text="#{client.lastName}"/>
+                    <input class="form-control" type="text" th:field="*{lastName}"/>
+                    <div class="text-danger small mb-4"  th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}"></div>
+                </div>
+
+                <div class="col-sm-6">
+                    <label th:text="#{client.cardNumber}"/>
+                    <input class="form-control" type="text" th:field="*{cardNumber}"/>
+                    <div class="text-danger small mb-4"  th:if="${#fields.hasErrors('cardNumber')}" th:errors="*{cardNumber}"></div>
+                </div>
+
+
+                <div class="col-sm-6">
+                    <label th:text="#{client.birthDate}"/>
+                    <input class="form-control" type="date" th:field="*{birthDate}"/>
+                    <div class="text-danger small mb-4"  th:if="${#fields.hasErrors('birthDate')}" th:errors="*{birthDate}"></div>
+                </div>
+
+                <div class="col-sm-6">
+                    <label th:text="#{client.address.phoneNo}"/>
+                    <input class="form-control" type="text" th:field="*{address.phoneNo}"/>
+                    <div class="text-danger small mb-4"  th:if="${#fields.hasErrors('address.phoneNo')}" th:errors="*{address.phoneNo}"></div>
+                </div>
+
+
+                <div class="col-sm-6">
+
+                </div>
+
+                <div class="col-sm-6">
+                    <label th:text="#{client.address.street}"/>
+                    <input class="form-control" type="text" th:field="*{address.street}"/>
+                    <div class="text-danger small mb-4"  th:if="${#fields.hasErrors('address.street')}" th:errors="*{address.street}"></div>
+                </div>
+
+                <div class="col-sm-6">
+                    <label th:text="#{client.address.houseNo}"/>
+                    <input class="form-control" type="text" th:field="*{address.houseNo}"/>
+                    <div class="text-danger small mb-4"  th:if="${#fields.hasErrors('address.houseNo')}" th:errors="*{address.houseNo}"></div>
+                </div>
+
+                <div class="col-sm-6">
+                    <label th:text="#{client.address.postalCode}"/>
+                    <input class="form-control" type="text" th:field="*{address.postalCode}"/>
+                    <div class="text-danger small mb-4"  th:if="${#fields.hasErrors('address.postalCode')}" th:errors="*{address.postalCode}"></div>
+                </div>
+
+                <div class="col-sm-6">
+                    <label th:text="#{client.address.city}"/>
+                    <input class="form-control" type="text" th:field="*{address.city}"/>
+                    <div class="text-danger small mb-4"  th:if="${#fields.hasErrors('address.city')}" th:errors="*{address.city}"></div>
+                </div>
+
+
+            </div>
+
+            <button type="submit" class="btn btn-dark" th:text="#{button.add}" />
+
+        </form>
+
+    </div>
+</body>
+</html>

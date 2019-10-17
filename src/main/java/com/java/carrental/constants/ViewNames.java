@@ -13,6 +13,7 @@ public final class ViewNames implements Serializable {
 
     public static final String CAR_LIST = "car-list";
     public static final String CAR_ADD_FORM = "car-add-form";
+    public static final String CAR_VIEW_FORM = "car-view-form";
     public static final String CAR_UPDATE_FORM = "car-update-form";
 
     public static final String CLIENT_LIST = "client-list";

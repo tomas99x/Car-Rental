@@ -19,7 +19,7 @@ public class RentalEntity {
     protected Long id;
 
     @ManyToOne
-    @JoinColumn(name = "CAR_ID")
+    //@JoinColumn(name = "CAR_ID")
     private CarEntity car;
 
     @ManyToOne
