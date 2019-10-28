@@ -37,7 +37,7 @@
                 <thead>
                     <tr>
                         <th scope="col" th:text="#{rental.id}"></th>
-                        <th colspan="2" th:text="#{rental.client}"></th>
+                        <th scope="col" th:text="#{rental.client}"></th>
                         <th scope="col" th:text="#{rental.car}"></th>
                         <th scope="col" th:text="#{rental.price}"></th>
                         <th scope="col" th:text="#{rental.rentalBranch}"></th>
@@ -52,17 +52,11 @@
                         <td th:text="${tempRental.id}"/>
                         <td>
                             <a th:href="@{/viewClient(clientId=${tempRental.client.id})}">
-                                <div style="height:100%;width:100%" th:text="${tempRental.client.firstName}" />
+                                <div style="height:100%;width:100%" th:text="${tempRental.client.firstName} + ' ' + ${tempRental.client.lastName}" />
                             </a>
                         </td>
                         <td>
-                            <a th:href="@{/viewClient(clientId=${tempRental.client.id})}">
-                                <div style="height:100%;width:100%" th:text="${tempRental.client.lastName}" />
-                            </a>
-                        </td>
-
-                        <td>
-                            <a th:href="@{/editCar(carId=${tempRental.car.id})}">
+                            <a th:href="@{/viewCar(carId=${tempRental.car.id})}">
                                 <div style="height:100%;width:100%" th:text="${tempRental.car.carBrandModel}"/>
                             </a>
                         </td>

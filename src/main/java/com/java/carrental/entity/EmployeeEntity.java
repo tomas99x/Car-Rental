@@ -6,7 +6,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.util.ArrayList;
 import java.util.List;
 
 @Getter
@@ -37,8 +36,16 @@ public class EmployeeEntity {
     @JoinColumn(name = "BRANCH_ID")
     private BranchEntity branch;
 
-    @ManyToMany(mappedBy = "carKeepers", fetch = FetchType.LAZY)
-    private List<CarEntity> cars = new ArrayList<>();
+    @ManyToMany(cascade = {
+                    CascadeType.PERSIST,
+                    CascadeType.MERGE
+            },
+            fetch = FetchType.LAZY
+            )
+    @JoinTable(name = "CAR_TO_EMPLOYEE",
+            joinColumns = @JoinColumn(name = "EMPLOYEE_ID"),
+            inverseJoinColumns = @JoinColumn(name = "CAR_ID"))
+    private List<CarEntity> cars;
 
     public EmployeeEntity(String firstName, String lastName, EmployeePosition position) {
         this.firstName = firstName;

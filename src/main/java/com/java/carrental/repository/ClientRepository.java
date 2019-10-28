@@ -11,5 +11,5 @@ import java.util.List;
 public interface ClientRepository extends JpaRepository<ClientEntity, Long> {
 
     @Query("select c from ClientEntity c where upper(c.lastName) like concat(upper(:lastName), '%') ")
-    List<ClientEntity> findClientByLastName(String lastName);
+    List<ClientEntity> findByLastName(String lastName);
 }

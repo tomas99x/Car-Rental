@@ -45,7 +45,7 @@ public class RentalController {
         model.addAttribute("branchesAllValues", branchService.findAllBranches());
         //model.addAttribute("allCars", carService.findAllCars());
         model.addAttribute("allClients", clientService.findAllClients());
-        model.addAttribute("hiddeCarSection", true);
+        model.addAttribute("hideCarSection", true);
 
         return ViewNames.RENTAL_ADD_FORM;
     }
@@ -78,7 +78,6 @@ public class RentalController {
     }
 
 
-    //TODO implement editRentalForm method
     @GetMapping("/editRental")
     public String editRentalForm(@RequestParam(name = "rentalId") Long rentalId, Model model){
         model.addAttribute("rental", rentalService.findRentalById(rentalId));

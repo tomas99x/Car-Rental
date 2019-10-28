@@ -1,5 +1,6 @@
 package com.java.carrental.repository;
 
+import com.java.carrental.entity.CarEntity;
 import com.java.carrental.entity.ClientEntity;
 import com.java.carrental.entity.RentalEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -15,6 +16,6 @@ public interface RentalRepository extends JpaRepository<RentalEntity, Long> {
 
     List<RentalEntity> findAllByStartDateBetween(LocalDateTime rentalStartDateStart, LocalDateTime rentalStartDateEnd);
 
-    List<RentalRepository> findAllByCar(ClientEntity clientEntity);
+    List<RentalEntity> findByCar(CarEntity carEntity);
 
 }

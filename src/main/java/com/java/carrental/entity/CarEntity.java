@@ -8,7 +8,6 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 
 @Getter
@@ -46,15 +45,15 @@ public class CarEntity {
     @Column(nullable = false)
     private Long mileage;
 
-    @ManyToMany(fetch = FetchType.LAZY,
-            cascade = {
+    @ManyToMany(cascade = {
             CascadeType.PERSIST,
             CascadeType.MERGE
-    })
+            },
+            fetch = FetchType.LAZY)
     @JoinTable(name = "CAR_TO_EMPLOYEE",
             joinColumns = @JoinColumn(name = "CAR_ID"),
             inverseJoinColumns = @JoinColumn(name = "EMPLOYEE_ID"))
-    private List<EmployeeEntity> carKeepers = new ArrayList<>();
+    private List<EmployeeEntity> carKeepers;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "BRANCH_ID")

@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://thymeleaf.org"
+      xmlns:layout="http//www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragments/main_layout}" >
+<head>
+    <meta charset="UTF-8">
+    <title th:text="#{client.view.form.title}"></title>
+</head>
+<body>
+    <div layout:fragment="content" class="container">
+        <h1 class="pt-4 pb-4" th:text="#{car.view.form.title}"></h1>
+        <div class="row">
+            <table class="table table-hover table-clear col-sm-6" th:object="${car}" >
+                <tbody>
+                    <tr>
+                        <td th:text="#{car.carBrandModel}" style="width: 200px"></td>
+                        <td th:text="*{carBrandModel}"></td>
+                    </tr>
+                    <tr>
+                        <td th:text="#{car.carType}"></td>
+                        <td th:text="*{carType}"></td>
+                    </tr>
+                    <tr>
+                        <td th:text="#{car.productionYear }"></td>
+                        <td th:text="*{productionYear }"></td>
+                    </tr>
+                    <tr>
+                        <td th:text="#{car.carColor}"></td>
+                        <td th:text="*{carColor}"></td>
+                    </tr>
+                    <tr>
+                        <td th:text="#{car.engineCapacity}"></td>
+                        <td th:text="*{engineCapacity}"></td>
+                    </tr>
+                    <tr>
+                        <td th:text="#{car.horsePower}"></td>
+                        <td th:text="*{horsePower}"></td>
+                    </tr>
+                    <tr>
+                        <td th:text="#{car.mileage}"></td>
+                        <td th:text="*{mileage}"></td>
+                    </tr>
+                    <tr>
+                        <td th:text="#{car.branch}"></td>
+                        <td th:text="*{branch.address.city}"></td>
+                    </tr>
+                    <tr>
+                        <td th:text="#{car.carKeepers}"></td>
+                        <td >
+                            <table class="table-info">
+                                <tr th:each="tempKeeper : ${car.carKeepers}">
+                                    <td style="border-top:0px; padding:0.3rem;" th:text="${tempKeeper.firstName}" />
+                                    <td style="border-top:0px; padding:0.3rem;" th:text="${tempKeeper.lastName}" />
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+
+
+                </tbody>
+            </table>
+            <div class="col-sm-2 float-right" >
+                <a class="btn btn-info" th:href="@{/editCar(carId=${car.id})}" th:text="#{button.update}"></a>
+            </div>
+        </div>
+
+        <h3 class="pt-4 pb-4" th:text="#{car.view.form.rentals}"></h3>
+
+        <table class="table table-hover table-clear" >
+            <thead>
+            <tr>
+                <th scope="col" th:text="#{rental.id}"></th>
+                <th scope="col" th:text="#{rental.client}"></th>
+                <th scope="col" th:text="#{rental.price}"></th>
+                <th scope="col" th:text="#{rental.rentalBranch}"></th>
+                <th scope="col" th:text="#{rental.startDate}"></th>
+                <th scope="col" th:text="#{rental.endDate}"></th>
+
+            </tr>
+            </thead>
+            <tbody>
+                <tr th:each="rental : ${car.rentals}">
+<!--                    <td>-->
+<!--                        <a th:href="@{/editCar(carId=${car.rentals.id})}">-->
+<!--                            <div style="height:70%;width:50%" th:text="${tempRental.car.carBrandModel}"/>-->
+<!--                        </a>-->
+<!--                    </td>-->
+                    <td th:text="*{rental.id}"/>
+                    <td th:text="*{rental.client.firstName} + ' '+ ${rental.client.lastName}"/>
+                    <td th:text="*{rental.totalPrice}"/>
+                    <td th:text="*{rental.rentalBranch.address.city}"/>
+                    <td th:text="*{rental.startDate}"/>
+                    <td th:text="*{rental.endDate}" />
+<!--                    <td>-->
+<!--                        <a th:href="@{/editReCar(carId=${car.rentals.id})}">-->
+<!--                            <div style="height:70%;width:50%" th:text="${tempRental.car.carBrandModel}"/>-->
+<!--                        </a>-->
+<!--                    </td>-->
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

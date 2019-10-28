@@ -196,7 +196,7 @@ public class CarRepositoryIntegrationTest {
     }
 
     @Test
-    public void shouldFindCarWithEmployeeWhenEmployeWasSavedEarlier() {
+    public void shouldFindCarWithEmployeeWhenEmployeeWasSavedEarlier() {
 
         //given
         EmployeeEntity employeeEntity = new EmployeeEntity(

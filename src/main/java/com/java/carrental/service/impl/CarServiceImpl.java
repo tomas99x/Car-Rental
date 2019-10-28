@@ -11,9 +11,11 @@ import com.java.carrental.entity.EmployeeEntity;
 import com.java.carrental.entity.enums.CarType;
 import com.java.carrental.mappers.BranchMapper;
 import com.java.carrental.mappers.CarMapper;
+import com.java.carrental.mappers.RentalMapper;
 import com.java.carrental.repository.BranchRepository;
 import com.java.carrental.repository.CarRepository;
 import com.java.carrental.repository.EmployeeRepository;
+import com.java.carrental.repository.RentalRepository;
 import com.java.carrental.service.CarService;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,9 +31,11 @@ public class CarServiceImpl implements CarService {
 
     private CarMapper carMapper;
     private BranchMapper branchMapper;
+    private RentalMapper rentalMapper;
     private CarRepository carRepository;
     private EmployeeRepository employeeRepository;
     private BranchRepository branchRepository;
+    private RentalRepository rentalRepository;
 
 
     @Override
@@ -43,6 +47,7 @@ public class CarServiceImpl implements CarService {
     @Override
     public CarDTO findCarById(Long id) {
         CarEntity carEntity = carRepository.findById(id).get();
+    //    List<RentalEntity> rentalEntities = rentalRepository.findByCar(carEntity);
         return carMapper.carToCarDTO(carEntity);
     }
 
@@ -57,22 +62,18 @@ public class CarServiceImpl implements CarService {
     public CarDTO saveCar(CarDTO carDTO) {
 
         List<EmployeeEntity> employeeEntities = new ArrayList<>();
-
         carDTO.getCarKeepers().removeIf(p-> p.getId() == null);
 
         if (carDTO.getCarKeepers() != null) {
             for (EmployeeDTO keeper : carDTO.getCarKeepers()) {
-
                 if (keeper.getId() != null){
                     employeeEntities.add(employeeRepository.findById(keeper.getId()).get());
                 }
-
             }
         }
 
         CarEntity carEntity = carMapper.carDtoToCar(carDTO);
         carEntity.setCarKeepers(employeeEntities);
-
         carEntity = carRepository.save(carEntity);
         return carMapper.carToCarDTO(carEntity);
     }
@@ -81,7 +82,6 @@ public class CarServiceImpl implements CarService {
     public CarDTO saveCarWithCarKeepersAndBranch(CarDtoWithLongKeepers carDTO) {
 
         CarEntity carEntity = carMapper.carDtoWithLongKeepersTOCar(carDTO);
-
         List<EmployeeEntity> employeeEntities = new ArrayList<>();
         if (carDTO.getCarKeepers() != null) {
             for (Long keeper : carDTO.getCarKeepers()) {
@@ -103,14 +103,18 @@ public class CarServiceImpl implements CarService {
     @Override
     public List<CarDTO> findCarByModelTypeBranch(String brandModel,  String type, String branchId) {
 
+        if (brandModel == null){
+            brandModel = "";
+        }
+
         Enum<CarType> carTypeEnum = null;
-        if (!ModelConstants.NO_VALUE.equals(type)){
+        if (type != null && !ModelConstants.NO_VALUE.equals(type)){
             carTypeEnum = CarType.valueOf(type);
         }
 
         Long id;
         BranchEntity branchEntity = null;
-        if (!ModelConstants.NO_VALUE.equals(branchId)) {
+        if (branchId != null && !ModelConstants.NO_VALUE.equals(branchId)) {
             id = Long.parseLong(branchId);
             branchEntity = branchRepository.findById(id).get();
         }
@@ -122,7 +126,6 @@ public class CarServiceImpl implements CarService {
     @Override
     public List<CarDTO> findCarsForRental(RentalDTO rentalDTO) {
 
-
         LocalDateTime startDate = rentalDTO.getStartDate();
         LocalDateTime endDate =  rentalDTO.getEndDate();
 
@@ -131,9 +134,7 @@ public class CarServiceImpl implements CarService {
                 startDate,
                 endDate);
 
-
-        List<CarDTO> carDTOS = carMapper.listCarToCarDTOs(carEntities);
-        return carDTOS;
+        return carMapper.listCarToCarDTOs(carEntities);
     }
 
 }

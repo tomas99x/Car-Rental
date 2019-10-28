@@ -26,8 +26,7 @@ public class BranchController {
     }
 
     @GetMapping("viewBranch")
-    public String viewBranchForm(Model model, @RequestParam(name="branchId") Long branchId,
-                                 @RequestParam(name="branchCity") String branchCity){
+    public String viewBranchForm(@RequestParam(name="branchId") Long branchId, Model model){
 
         BranchDTO branchDTO = branchService.findBranchById(branchId);
         model.addAttribute("branch", branchDTO);

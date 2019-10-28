@@ -24,6 +24,13 @@ public abstract class EmployeeMapperDecorator implements EmployeeMapper{
     }
 
     @Override
+    public EmployeeEntity employeeDtoToEmployee(EmployeeDTO employeeDTO){
+        EmployeeEntity employeeEntity = delegate.employeeDtoToEmployee(employeeDTO);
+        employeeEntity.setCars(carMapper.listCarDtoToCars(employeeDTO.getCars()));
+        return employeeEntity;
+    }
+
+    @Override
     public List<EmployeeDTO> listEmployeesToEmployeeDTOs(List<EmployeeEntity> employeeEntityList)  {
         List<EmployeeDTO> employeeDTOS = delegate.listEmployeesToEmployeeDTOs( employeeEntityList );
         for (int i=0; i < employeeDTOS.size(); i++) {

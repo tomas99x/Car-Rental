@@ -20,13 +20,19 @@ public abstract class CarMapperDecorator implements CarMapper{
     @Qualifier("delegate")
     private EmployeeMapper employeeMapper;
 
+    @Autowired
+    private RentalMapper rentalMapper;
+
 
     @Override
     public CarDTO carToCarDTO(CarEntity carEntity) {
         CarDTO carDTO = delegate.carToCarDTO(carEntity);
         carDTO.setCarKeepers(employeeMapper.listEmployeesToEmployeeDTOs(carEntity.getCarKeepers()));
+        carDTO.setRentals(rentalMapper.listRentalsToRentalDTOs(carEntity.getRentals()));
         return carDTO;
     }
+
+
 
     @Override
     public CarDtoWithLongKeepers carToCarDtoWithLongKeepers(CarEntity carEntity){
@@ -51,6 +57,10 @@ public abstract class CarMapperDecorator implements CarMapper{
 
     @Override
     public List<CarDTO> listCarToCarDTOs(List<CarEntity> carEntities){
+        if (carEntities == null){
+            return null;
+        }
+
         List<CarDTO> carDTOS = delegate.listCarToCarDTOs(carEntities);
 
         for (int i=0; i < carDTOS.size(); i++) {

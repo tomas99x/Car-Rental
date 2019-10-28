@@ -18,4 +18,6 @@ public interface EmployeeService {
     List<EmployeeDTO> findAllEmployeesWithCar();
 
     List<EmployeeDTO>findEmployeesByBranch(BranchDTO branchDTO);
+
+    EmployeeDTO addEmployee (EmployeeDTO employeeDTO);
 }

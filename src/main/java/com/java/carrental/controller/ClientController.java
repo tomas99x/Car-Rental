@@ -28,7 +28,7 @@ public class ClientController {
     }
 
     @GetMapping("/viewClient")
-    public String viewClientForm(Model model, @RequestParam(name = "clientId") Long clientId){
+    public String viewClientForm(@RequestParam(name = "clientId") Long clientId, Model model){
         model.addAttribute("client", clientService.findClientById(clientId));
         model.addAttribute("rentals", clientService.findClientRentals(clientId));
         return ViewNames.CLIENT_VIEW_FORM;
@@ -47,7 +47,6 @@ public class ClientController {
         if(bindingResult.hasErrors()){
             return ViewNames.CLIENT_ADD_FORM;
         }
-
         clientService.addClient(clientDTO);
         model.addAttribute("clients", clientService.findAllClients());
         return ViewNames.CLIENT_LIST;

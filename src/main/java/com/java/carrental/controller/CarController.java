@@ -40,7 +40,6 @@ public class CarController {
     public String viewCarForm(@RequestParam(name = "carId") Long carId, Model model){
 
         model.addAttribute("car", carService.findCarById(carId));
-
         return ViewNames.CAR_VIEW_FORM;
     }
 
@@ -67,7 +66,7 @@ public class CarController {
     }
 
     @GetMapping("/editCar")
-    public String editCarForm(Model model, @RequestParam(name = "carId") Long carId){
+    public String editCarForm(@RequestParam(name = "carId") Long carId, Model model){
         model.addAttribute("car", carService.findCarById(carId));
         model.addAttribute("keepersAllValues", employeeService.findAllEmployees());
         model.addAttribute("branchesAllValues", branchService.findAllBranches());
@@ -75,9 +74,9 @@ public class CarController {
     }
 
     @GetMapping("/searchCar")
-    public String searchCarTypeBranch(Model model, @RequestParam(defaultValue = "")String carBrandModel,
+    public String searchCarTypeBranch(@RequestParam(defaultValue = "")String carBrandModel,
                                       @RequestParam(defaultValue = ModelConstants.NO_VALUE) String carType,
-                                      @RequestParam(defaultValue = ModelConstants.NO_VALUE) String branch){
+                                      @RequestParam(defaultValue = ModelConstants.NO_VALUE) String branch, Model model){
 
         model.addAttribute("cars", carService.findCarByModelTypeBranch(carBrandModel, carType, branch));
         model.addAttribute("branchesAllValues", branchService.findAllBranches());

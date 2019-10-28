@@ -1,8 +1,10 @@
 package com.java.carrental.service.impl;
 
 import com.java.carrental.dto.BranchDTO;
+import com.java.carrental.dto.CarDTO;
 import com.java.carrental.dto.EmployeeDTO;
 import com.java.carrental.entity.BranchEntity;
+import com.java.carrental.entity.CarEntity;
 import com.java.carrental.entity.EmployeeEntity;
 import com.java.carrental.mappers.BranchMapper;
 import com.java.carrental.mappers.CarMapper;
@@ -14,6 +16,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @AllArgsConstructor(onConstructor = @__(@Autowired))
@@ -66,7 +69,27 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Override
     public List<EmployeeDTO>findEmployeesByBranch(BranchDTO branchDTO){
         BranchEntity branchEntity = branchMapper.branchDtoToBranch(branchDTO);
-        return employeeMapper.listEmployeesToEmployeeDTOs(employeeRepository.findByBranch(branchEntity));
+        return employeeMapper.listEmployeesToEmployeeDTOs(employeeRepository.findEmployeesByBranch(branchEntity));
+    }
+
+    @Override
+    public EmployeeDTO addEmployee(EmployeeDTO employeeDTO) {
+        EmployeeEntity employeeEntity = employeeMapper.employeeDtoToEmployee(employeeDTO);
+
+        if (employeeDTO.getCars() != null) {
+            List<CarEntity> carEntities = new ArrayList<>();
+            employeeDTO.getCars().removeIf(p-> p.getId() == null);
+
+            for (CarDTO car : employeeDTO.getCars()) {
+                if (car.getId() != null){
+                    carEntities.add(carRepository.findById(car.getId()).get());
+                }
+            }
+            employeeEntity.setCars(carEntities);
+        }
+
+        employeeEntity = employeeRepository.save(employeeEntity);
+        return employeeMapper.employeeToEmployeeDTO(employeeEntity);
     }
 
 }

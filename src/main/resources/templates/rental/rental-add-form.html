@@ -86,9 +86,9 @@
             <button type="submit" class="btn btn-dark mb-4"  name='rentalAction' value='actionSearchCar' th:text="#{button.search.car}" />
 
             <div class="col-sm-6 mb-4">
-                <label th:hidden="${hiddeCarSection}"  th:text="#{rental.add.car}" />
+                <label th:hidden="${hideCarSection}"  th:text="#{rental.add.car}" />
 
-                <select class="form-control"   th:hidden="${hiddeCarSection}"  th:field="${rental.car.id}">
+                <select class="form-control"   th:hidden="${hideCarSection}"  th:field="${rental.car.id}">
                     <option value="" th:text="#{button.select}" >Wybierz</option>
                     <option th:each="tempCar : ${allCars}"
                             th:value="${tempCar.id}"
@@ -98,7 +98,7 @@
 
             </div>
 
-            <button type="submit" class="btn btn-dark"  name='rentalAction' value='actionAddRental' th:hidden="${hiddeCarSection}"th:text="#{button.add}" />
+            <button type="submit" class="btn btn-dark"  name='rentalAction' value='actionAddRental' th:hidden="${hideCarSection}"th:text="#{button.add}" />
 
         </form>
 

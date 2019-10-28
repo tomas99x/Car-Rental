@@ -20,10 +20,9 @@ public abstract class  RentalMapper {
     @Mapping(ignore = true, target = "car")
     public abstract RentalDTO rentalToRentalDtoWithoutCar(RentalEntity rentalEntity);
 
-   public RentalDTO rentalToRentalDTO(RentalEntity rentalEntity) {
+    public RentalDTO rentalToRentalDTO(RentalEntity rentalEntity) {
 
         RentalDTO rentalDTO = rentalToRentalDtoWithoutCar(rentalEntity);
-        //CarMapper carMapper = new CarMapperImpl_();
         rentalDTO.setCar(carMapper.carToCarDTO(rentalEntity.getCar()));
 
         return rentalDTO;
