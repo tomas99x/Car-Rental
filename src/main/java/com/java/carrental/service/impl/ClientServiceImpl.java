@@ -43,5 +43,11 @@ public class ClientServiceImpl implements ClientService {
         return clientMapper.clientToClientDTO(clientEntity);
     }
 
+    @Override
+    public List<ClientDTO> findClientsByFirstNameOrLastNameOrCity(String clientFirstName, String clientLastName, String clientCity) {
+        List<ClientEntity> clientEntities = clientRepository.findByFirstNameOrLastNameOrAddress(clientFirstName.trim(), clientLastName.trim(), clientCity.trim());
+        return clientMapper.listClientToClientDtos(clientEntities);
+    }
+
 
 }

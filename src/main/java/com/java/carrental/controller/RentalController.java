@@ -50,6 +50,7 @@ public class RentalController {
         return ViewNames.RENTAL_ADD_FORM;
     }
 
+    //TODO correct error during update
     @PostMapping("/addRental")
     public String addRentalForm (@ModelAttribute("rental") @Valid RentalDTO rentalDTO,
                                  BindingResult bindingResult, Model model,
@@ -88,9 +89,9 @@ public class RentalController {
     }
 
     @GetMapping("/searchRental")
-    public String searchRental(Model model, @RequestParam(required = false) Long rentalNumber,
-                               @RequestParam(defaultValue = ModelConstants.NO_VALUE) String clientLastName,
-                               @RequestParam(defaultValue = ModelConstants.NO_VALUE) String rentalStartDate) {
+    public String searchRental(Model model, @RequestParam(name = "rentalNumber", required = false) Long rentalNumber,
+                               @RequestParam(name = "clientLastName", defaultValue = ModelConstants.NO_VALUE) String clientLastName,
+                               @RequestParam(name = "rentalStartDate", defaultValue = ModelConstants.NO_VALUE) String rentalStartDate) {
 
         List<RentalDTO> rentalDTOS = new ArrayList<>();
 

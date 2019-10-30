@@ -5,6 +5,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import javax.validation.Valid;
+
 @Setter
 @Getter
 @NoArgsConstructor
@@ -13,5 +15,6 @@ public class BranchDTO {
 
     private Long id;
 
+    @Valid
     private AddressDTO address;
 }

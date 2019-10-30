@@ -5,7 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.NotBlank;
 
 @Setter
 @Getter
@@ -13,16 +13,18 @@ import javax.validation.constraints.NotNull;
 @AllArgsConstructor
 public class AddressDTO {
 
-    @NotNull
+    @NotBlank
     private String phoneNo;
 
+    @NotBlank
     private String street;
 
+    @NotBlank
     private String houseNo;
 
-    @NotNull
+    @NotBlank
     private String city;
 
-    @NotNull
+    @NotBlank
     private String postalCode;
 }

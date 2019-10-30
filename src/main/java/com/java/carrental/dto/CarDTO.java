@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.util.List;
@@ -20,7 +21,7 @@ public class CarDTO {
 
     private Long id;
 
-    @NotNull
+    @NotBlank
     private String carBrandModel;
 
     @NotNull

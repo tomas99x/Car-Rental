@@ -45,7 +45,11 @@ public class ClientController {
                                 BindingResult bindingResult, Model model){
 
         if(bindingResult.hasErrors()){
-            return ViewNames.CLIENT_ADD_FORM;
+            if (clientDTO.getId() == null){
+                return ViewNames.CLIENT_ADD_FORM;
+            } else {
+              return ViewNames.CLIENT_UPDATE_FORM;
+            }
         }
         clientService.addClient(clientDTO);
         model.addAttribute("clients", clientService.findAllClients());
@@ -59,8 +63,12 @@ public class ClientController {
         return ViewNames.CLIENT_UPDATE_FORM;
     }
 
-    //TODO implement searchClient method
-    public String searchClient() {
-        return null;
+    @GetMapping("/searchClient")
+    public String searchClient(@RequestParam(name="clientFirstName", required = false) String clientFirstName,
+                               @RequestParam(name="clientLastName", required = false) String clientLastName,
+                               @RequestParam(name="clientCity", required = false) String clientCity, Model model) {
+
+        model.addAttribute("clients", clientService.findClientsByFirstNameOrLastNameOrCity(clientFirstName, clientLastName,clientCity));
+        return ViewNames.CLIENT_LIST;
     }
 }

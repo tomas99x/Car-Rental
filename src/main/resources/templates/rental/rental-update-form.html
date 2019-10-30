@@ -74,7 +74,7 @@
                 </select>
                 <div class="text-danger small" th:if="${#fields.hasErrors('car')}" th:errors="${carError}">Name Error</div>
             </div>
-            <button type="submit" class="btn btn-dark"  name='rentalAction' value='actionAddRental' th:hidden="${hiddeCarSection}"th:text="#{button.add}" />
+            <button type="submit" class="btn btn-dark"  name='rentalAction' value='actionAddRental' th:hidden="${hiddeCarSection}"th:text="#{button.update}" />
         </form>
     </div>
 </body>

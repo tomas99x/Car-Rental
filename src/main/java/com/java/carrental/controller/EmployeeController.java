@@ -39,25 +39,26 @@ public class EmployeeController {
         return ViewNames.EMPLOYEE_VIEW_FORM;
     }
 
-    //TODO implement addEmployeeForm method
     @GetMapping("/addEmployee")
     public String employeeForm(Model model){
-
         model.addAttribute("employee", new EmployeeDTO());
         model.addAttribute("branchesAllValues", branchService.findAllBranches());
-
         return ViewNames.EMPLOYEE_ADD_FORM;
     }
 
+    //TODO correct issue with checkbox car keepers
     @PostMapping("/addEmployee")
     public String addEmployeeForm(@ModelAttribute("employee") @Valid EmployeeDTO employeeDTO,
                                   BindingResult bindingResult, Model model,
                                   @RequestParam(name = "employeeAction", required = true) String employeeAction){
 
         if(bindingResult.hasErrors()){
-
             model.addAttribute("branchesAllValues", branchService.findAllBranches());
-            return ViewNames.EMPLOYEE_ADD_FORM;
+            if (employeeDTO.getId() == null){
+                return ViewNames.EMPLOYEE_ADD_FORM;
+            } else {
+                return ViewNames.EMPLOYEE_UPDATE_FORM;
+            }
         }
 
         if ("actionSearchCar".equals(employeeAction)){
@@ -71,9 +72,15 @@ public class EmployeeController {
         return "redirect:/employeeList";
     }
 
-    //TODO implement editEmployeeForm method
-    public String editEmployeeForm(){
-        return null;
+    //TODO correct problem with selected checkbox
+    @GetMapping("/editEmployee")
+    public String editEmployeeForm(@RequestParam(name = "employeeId") Long employeeId, Model model){
+
+        model.addAttribute("employee", employeeService.findEmployeeById(employeeId));
+        model.addAttribute("branchesAllValues", branchService.findAllBranches());
+        model.addAttribute("carsAll", carService.findAllCars());
+
+        return ViewNames.EMPLOYEE_UPDATE_FORM;
     }
 
 

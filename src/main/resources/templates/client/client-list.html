@@ -13,6 +13,26 @@
         <h1 class="pt-4 pb-4" th:text="#{client.title}"></h1>
         <a class="btn btn-secondary mb-3" th:href="@{/addClient}" th:text="#{client.add}" />
 
+        <form action="/searchClient">
+
+            <div class="form-row align-items-center mb-3">
+
+                <div class="col-sm-3">
+                    <input class="form-control" type="text" name="clientFirstName" placeholder="Wyszukaj po imieniu"/>
+                </div>
+
+                <div class="col-sm-3">
+                    <input class="form-control" type="text" name="clientLastName" placeholder="Wyszukaj po nazwisku"/>
+                </div>
+
+                <div class="col-sm-3">
+                    <input class="form-control" type="text" name="clientCity" placeholder="Wyszukaj po miejscowości"/>
+                </div>
+
+                <input class="btn btn-primary" type="submit" value="szukaj"/>
+            </div>
+        </form>
+
         <table class="table table-hover table-clear" >
                 <thead>
                     <tr>
@@ -24,9 +44,7 @@
                     </tr>
                 </thead>
                 <tbody>
-
                     <tr th:each="tempClient : ${clients}">
-
 
                     <a th:href="@{/editCar(clientId=${tempClient.id})}">
 
@@ -34,17 +52,13 @@
                     </a>
                         <td th:text="${tempClient.lastName}"/>
                         <td th:text="${tempClient.address.city}"/>
-
-
                         <td>
                             <a class="btn btn-primary" th:href="@{/viewClient(clientId=${tempClient.id})}" th:text="#{button.view}"></a>
                         </td>
                         <td>
                             <a class="btn btn-info" th:href="@{/editClient(clientId=${tempClient.id})}" th:text="#{button.update}"></a>
                         </td>
-
                     </tr>
-
                 </tbody>
             </table>
     </div>

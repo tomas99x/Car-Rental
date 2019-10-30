@@ -13,4 +13,6 @@ public interface ClientService {
     List<RentalDTO> findClientRentals(Long clientId);
 
     ClientDTO addClient(ClientDTO clientDTO);
+
+    List<ClientDTO> findClientsByFirstNameOrLastNameOrCity(String clientFirstName, String clientLastName, String clientCity);
 }

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://thymeleaf.org"
+      xmlns:layout="http//www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragments/main_layout}" >
+<head>
+    <meta charset="UTF-8">
+    <title th:text="#{branch.add.title}"></title>
+</head>
+<body>
+    <div layout:fragment="content" class="container">
+        <h1 class="pt-4 pb-4" th:text="#{branch.add.title}"></h1>
+
+        <form th:action="@{/addBranch}" th:object="${branch}" method="post">
+            <div class="form-group row">
+
+                <div class="col-sm-6 mb-4">
+                    <label th:text="#{branch.phoneNo}"/>
+                    <input class="form-control" type="text" th:field="*{address.phoneNo}"/>
+                    <div class="text-danger small"  th:if="${#fields.hasErrors('address.phoneNo')}" th:errors="*{address.phoneNo}"></div>
+                </div>
+
+                <div class="col-sm-6 mb-4">
+                    <label th:text="#{branch.street}"/>
+                    <input class="form-control" type="text" th:field="*{address.street}"/>
+                    <div class="text-danger small"  th:if="${#fields.hasErrors('address.street')}" th:errors="*{address.street}"></div>
+                </div>
+
+                <div class="col-sm-6 mb-4">
+                    <label th:text="#{branch.houseNo}"/>
+                    <input class="form-control" type="text" th:field="*{address.houseNo}"/>
+                    <div class="text-danger small"  th:if="${#fields.hasErrors('address.houseNo')}" th:errors="*{address.houseNo}"></div>
+                </div>
+
+                <div class="col-sm-6 mb-4">
+                    <label th:text="#{branch.city}"/>
+                    <input class="form-control" type="text" th:field="*{address.city}"/>
+                    <div class="text-danger small"  th:if="${#fields.hasErrors('address.city')}" th:errors="*{address.city}"></div>
+                </div>
+
+                <div class="col-sm-6 mb-4">
+                    <label th:text="#{branch.postalCode}"/>
+                    <input class="form-control" type="text" th:field="*{address.postalCode}"/>
+                    <div class="text-danger small"  th:if="${#fields.hasErrors('address.postalCode')}" th:errors="*{address.postalCode}"></div>
+                </div>
+            </div>
+
+            <button type="submit" class="btn btn-dark" th:text="#{button.add}" />
+
+        </form>
+    </div>
+</body>
+</html>

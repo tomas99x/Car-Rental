@@ -20,43 +20,43 @@
                 <div class="col-sm-6">
                     <label th:text="#{car.carBrandModel}"/>
                     <input class="form-control" type="text" th:field="*{carBrandModel}"/>
-                    <div th:if="${#fields.hasErrors('carBrandModel')}" th:errors="*{carBrandModel}">Name Error</div>
+                    <div class="text-danger small"  th:if="${#fields.hasErrors('carBrandModel')}" th:errors="*{carBrandModel}"></div>
                 </div>
 
                 <div class="col-sm-6">
                     <label th:text="#{car.carType}"/>
                     <input class="form-control" type="text" th:field="*{carType}"/>
-                    <div th:if="${#fields.hasErrors('carBrandModel')}" th:errors="*{carBrandModel}">Name Error</div>
+                    <div class="text-danger small"  th:if="${#fields.hasErrors('carBrandModel')}" th:errors="*{carBrandModel}"></div>
                 </div>
 
                 <div class="col-sm-6">
                     <label th:text="#{car.productionYear}"/>
                     <input class="form-control" type="date" th:field="*{productionYear}"/>
-                    <div th:if="${#fields.hasErrors('carBrandModel')}" th:errors="*{carBrandModel}">Name Error</div>
+                    <div class="text-danger small"  th:if="${#fields.hasErrors('carBrandModel')}" th:errors="*{carBrandModel}"></div>
                 </div>
 
                 <div class="col-sm-6">
                     <label th:text="#{car.carColor}"/>
                     <input class="form-control" type="text" th:field="*{carColor}"/>
-                    <div th:if="${#fields.hasErrors('carBrandModel')}" th:errors="*{carBrandModel}">Name Error</div>
+                    <div class="text-danger small"  th:if="${#fields.hasErrors('carBrandModel')}" th:errors="*{carBrandModel}"></div>
                 </div>
 
                 <div class="col-sm-6">
                     <label th:text="#{car.engineCapacity}"/>
                     <input class="form-control" type="text" th:field="*{engineCapacity}"/>
-                    <div th:if="${#fields.hasErrors('carBrandModel')}" th:errors="*{carBrandModel}">Name Error</div>
+                    <div class="text-danger small"  th:if="${#fields.hasErrors('engineCapacity')}" th:errors="*{engineCapacity}"></div>
                 </div>
 
                 <div class="col-sm-6">
                     <label th:text="#{car.horsePower}"/>
                     <input class="form-control" type="text" th:field="*{horsePower}"/>
-                    <div th:if="${#fields.hasErrors('carBrandModel')}" th:errors="*{carBrandModel}">Name Error</div>
+                    <div class="text-danger small"  th:if="${#fields.hasErrors('horsePower')}" th:errors="*{horsePower}"></div>
                 </div>
 
                 <div class="col-sm-6">
                     <label th:text="#{car.mileage}"/>
                     <input class="form-control" type="text" th:field="*{mileage}"/>
-                    <div th:if="${#fields.hasErrors('carBrandModel')}" th:errors="*{carBrandModel}">Name Error</div>
+                    <div class="text-danger small"  th:if="${#fields.hasErrors('mileage')}" th:errors="*{mileage}"></div>
                 </div>
             </div>
 
@@ -108,7 +108,7 @@
                 </fieldset>
             </div>
 
-            <button type="submit" class="btn btn-dark" th:text="#{button.add}" />
+            <button type="submit" class="btn btn-dark" th:text="#{button.update}" />
 
         </form>
 

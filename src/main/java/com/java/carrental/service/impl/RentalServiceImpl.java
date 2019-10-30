@@ -57,7 +57,7 @@ public class RentalServiceImpl implements RentalService {
 
     @Override
     public List<RentalDTO> findRentalByClientLastName(String lastName) {
-        List<ClientEntity> clientEntities = clientRepository.findByLastName(lastName);
+        List<ClientEntity> clientEntities = clientRepository.findByLastNameContaining(lastName);
         List<RentalEntity> rentalEntities = new ArrayList<>();
 
         for (ClientEntity clientEntity : clientEntities) {

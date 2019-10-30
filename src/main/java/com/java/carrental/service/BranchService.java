@@ -10,4 +10,6 @@ public interface BranchService {
     List<BranchDTO> findAllBranches();
 
     BranchDTO findBranchById(Long id);
+
+    BranchDTO saveBranch(BranchDTO branchDTO);
 }

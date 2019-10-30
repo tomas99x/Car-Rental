@@ -26,4 +26,10 @@ public class BranchServiceImpl implements BranchService {
     public BranchDTO findBranchById(Long id) {
         return branchMapper.branchToBranchDTO(branchRepository.findById(id).get());
     }
+
+    @Override
+    public BranchDTO saveBranch(BranchDTO branchDTO){
+        branchRepository.save(branchMapper.branchDtoToBranch(branchDTO));
+        return null;
+    }
 }

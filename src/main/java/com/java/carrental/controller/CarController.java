@@ -58,7 +58,12 @@ public class CarController {
             System.out.println("BINDING RESULT ERROR");
             model.addAttribute("keepersAllValues", employeeService.findAllEmployees());
             model.addAttribute("branchesAllValues", branchService.findAllBranches());
-            return ViewNames.CAR_ADD_FORM;
+
+            if(carDTO.getId() == null){
+                return ViewNames.CAR_ADD_FORM;
+            } else {
+                return ViewNames.CAR_UPDATE_FORM;
+            }
         }
       //  carService.saveCarWithCarKeepersAndBranch(carDTO);
         carService.saveCar(carDTO);
